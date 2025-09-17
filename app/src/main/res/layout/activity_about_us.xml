@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    tools:context=".activity.AboutUsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/TextBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="About Us"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAppInformation"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/imgLogo"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_nuclear"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/theme" />
+
+                <TextView
+                    android:id="@+id/tvAppName"
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/app_name"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                    app:layout_constraintTop_toTopOf="@+id/imgLogo" />
+
+                <TextView
+                    android:id="@+id/tvAppVersion"
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="1.1"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
+                    app:layout_constraintStart_toEndOf="@+id/tvAppName" />
+
+                <TextView
+                    android:id="@+id/tvAppCreator"
+                    style="@style/TextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Created by zenDEv - 2025"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/tvAppName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
+
+                <View
+                    android:id="@+id/viewSep1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_margin="20dp"
+                    android:background="@color/foreground_less"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+
+                <TextView
+                    android:id="@+id/tvAppDescription"
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="KeeperGen is your secure digital vault. Safely store and manage all your passwords, bank cards, and personal notes with advanced encryption. Easily generate unique passwords and customize your experience in Settings"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewSep1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFeatures"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/cardAppInformation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_rocket"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="Features"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Store information in the device even when you're offline" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Import all your device contacts into the application database with one click" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Generate new passwords and customize strength of the password" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Sync your information with cloud database, so you can access it anywhere you want" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="All new user interface for better exprience" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFixedBugs"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardFeatures">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_bug"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="Fixed bugs"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Unexpected item selection occurs when multi-select mode is enabled" />
+
+                <TextView
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:text="Code optimization and performance improvement" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDeveloperInformation"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardFixedBugs">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:padding="15dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mehdi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Mehdi Lavasani"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imgProfile"
+                    app:layout_constraintStart_toStartOf="@+id/imgProfile"
+                    app:layout_constraintTop_toBottomOf="@+id/imgProfile" />
+
+                <TextView
+                    android:id="@+id/tvDescription"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:lineHeight="20dp"
+                    android:text="Hi my name is mehdi, 25 years old developer and i currently live in Iran, Karaj city.\n\nI love application development and build stuff to help people and teach other engineers how to program"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDescription">
+
+                    <ImageView
+                        android:id="@+id/imgGmail"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_google" />
+
+                    <ImageView
+                        android:id="@+id/imgTelegram"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_telegram" />
+
+                    <ImageView
+                        android:id="@+id/imgInstagram"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_instagram" />
+
+                    <ImageView
+                        android:id="@+id/imgGithub"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_github" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

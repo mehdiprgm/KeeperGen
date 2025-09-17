@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:fillViewport="false"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvCreatePasscode"
+            style="@style/TextBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Create Passcode"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Enter your passcode to complete setup"
+            app:layout_constraintEnd_toEndOf="@+id/tvCreatePasscode"
+            app:layout_constraintStart_toStartOf="@+id/tvCreatePasscode"
+            app:layout_constraintTop_toBottomOf="@+id/tvCreatePasscode" />
+
+        <View
+            android:id="@+id/viewSep1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:background="@color/foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <TextView
+            android:id="@+id/tvPasscode"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Passcode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep1" />
+
+        <EditText
+            android:id="@+id/txtPasscode"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edittext_background"
+            android:hint="****"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPasscode" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_radius"
+            android:text="Register"
+            style="@style/TextNormal"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/txtPasscode"
+            app:layout_constraintStart_toStartOf="@+id/txtPasscode"
+            app:layout_constraintTop_toBottomOf="@+id/txtPasscode" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

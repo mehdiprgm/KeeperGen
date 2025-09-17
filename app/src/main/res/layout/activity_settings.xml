@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:background="@color/background"
+    tools:context=".activity.SettingsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/panelBackground2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextBig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/transparent"
+                android:text="Settings"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_arrow_back"
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:fabCustomSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvDisplay"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Display"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layTop" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDisplay"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDisplay">
+
+            <LinearLayout
+                android:id="@+id/layDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_moon" />
+
+                <LinearLayout
+                    android:id="@+id/layTheme"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/TextNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="Theme" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvBehaviour"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Behaviour"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardDisplay" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBehaviour"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBehaviour">
+
+            <LinearLayout
+                android:id="@+id/layBehaviour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_warning" />
+
+                <LinearLayout
+                    android:id="@+id/layConfirmChanges"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchConfirmChanges"
+                        style="@style/TextNormal"
+                        android:layout_width="match_parent"
+                        app:trackTint="@color/theme"
+                        app:thumbTint="@color/foreground"
+                        android:layout_height="0dp"
+                        android:text="Confirm changes" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvDevice"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Device"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardBehaviour" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDevice"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDevice">
+
+            <LinearLayout
+                android:id="@+id/layDevice"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:padding="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_contacts" />
+
+                <LinearLayout
+                    android:id="@+id/layImportContacts"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        style="@style/TextNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:text="Import contacts" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_arrow_right" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvSecurity"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Security"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardDevice" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardSecurity"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSecurity">
+
+            <LinearLayout
+                android:id="@+id/laySecurity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layChangePasscode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_lock_close" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
+                        android:background="@color/panelBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            style="@style/TextNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:text="Change passcode" />
+
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_arrow_right" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@color/foreground_less" />
+
+                <LinearLayout
+                    android:id="@+id/layLockTimeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_clock" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
+                        android:background="@color/panelBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            style="@style/TextNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:text="Lock timeout" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_arrow_right" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@color/foreground_less" />
+
+                <LinearLayout
+                    android:id="@+id/layScreenshot"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_fit_screen" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
+                        android:background="@color/panelBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchScreenShot"
+                            style="@style/TextNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            app:trackTint="@color/theme"
+                            app:thumbTint="@color/foreground"
+                            android:checked="true"
+                            android:text="Take screenshots" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvHelp"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Help"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardSecurity"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardHelp"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvHelp">
+
+            <LinearLayout
+                android:id="@+id/layHelp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/panelBackground"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layReportBug"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/panelBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_bug" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.9"
+                        android:background="@color/panelBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            style="@style/TextNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:text="Report bug" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_arrow_right" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

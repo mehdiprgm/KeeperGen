@@ -1,0 +1,303 @@
+/* hide or show the edittext password
+     val cursorPosition = b.txtPasscode.selectionStart
+
+     if (b.switchShowPasscode.isChecked) {/* show the password */
+        b.txtPasscode.transformationMethod =
+        HideReturnsTransformationMethod.getInstance()
+     } else {/* hide the password */
+        b.txtPasscode.transformationMethod = PasswordTransformationMethod.getInstance()
+     }
+
+     b.txtPasscode.setSelection(cursorPosition)
+
+/* hide or show the edittext password
+
+
+/* Show imageview above the cardview like elevation
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/your_rectangle"
+        style="@style/TextNormal"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:background="#c6c6c6"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:background="@android:color/transparent"
+            android:text="Text us here" />
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/your_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_credit_card"
+        app:layout_constraintBottom_toTopOf="@id/your_rectangle"
+        app:layout_constraintEnd_toEndOf="@+id/your_rectangle"
+        app:layout_constraintStart_toStartOf="@+id/your_rectangle"
+        app:layout_constraintTop_toTopOf="@id/your_rectangle"
+        app:tint="@color/theme" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+/* Show imageview above the cardview like elevation
+
+
+/* Change button background
+setButtonBackground(requireContext(), b.btnCopyPassword, R.color.background)
+/* Change button background
+
+
+/* Sync BottomNavigationView with ViewPager */
+        b.bnvMain.setOnItemSelectedListener { item ->
+            b.viewPager.currentItem = when (item.itemId) {
+                R.id.menuHome -> 0
+                R.id.menuPasswordGenerator -> 1
+                R.id.menuSettings -> 2
+                else -> 0
+            }
+            true
+        }
+/* Sync BottomNavigationView with ViewPager */
+
+/* Sync ViewPager with BottomNavigationView */
+        b.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                b.bnvMain.menu[position].isChecked = true
+            }
+        })
+/* Sync ViewPager with BottomNavigationView */
+
+/* Change bottom navigation view colors */
+    private fun setupBottomNavigationViewIconColors() {
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked), // Selected state
+            intArrayOf(-android.R.attr.state_checked) // Unselected state
+        )
+
+        val colors = intArrayOf(
+            ContextCompat.getColor(this, R.color.theme), // Selected color
+            ContextCompat.getColor(this, R.color.foreground) // Unselected color
+        )
+
+        b.bnvMain.itemIconTintList = ColorStateList(states, colors)
+        b.bnvMain.itemTextColor = ColorStateList(states, colors)
+    }
+/* Change bottom navigation view colors */
+
+/* Detect screen rotation */
+
+            override fun onConfigurationChanged(newConfig: Configuration) {
+                super.onConfigurationChanged(newConfig)
+
+                when (newConfig.orientation) {
+                    Configuration.ORIENTATION_LANDSCAPE -> {
+                        b.bnvMain.visibility = View.GONE
+                    }
+
+                    Configuration.ORIENTATION_PORTRAIT -> {
+                        b.bnvMain.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+/* Detect screen rotation */
+
+/* Edittext password toggle end icon */
+textInputLayout?.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
+/* Edittext password toggle end icon */
+
+
+/* watch app-level lifecycle */
+ProcessLifecycleOwner.get().lifecycle.addObserver(this)
+@OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+private fun destroyActivity() {
+val lockAppStatus =
+getSharedPreferences(preferencesName, MODE_PRIVATE).getBoolean("LockApp", false)
+if (lockAppStatus) {
+finish()
+}
+}
+
+override fun onDestroy() {
+super.onDestroy()
+/* clean up observer (optional) */
+ProcessLifecycleOwner.get().lifecycle.removeObserver(this)
+}
+
+/* watch app-level lifecycle */
+
+/* navigation bottom view change color and animation */
+private fun changeBottomNavigationViewItem(view: ShapeableImageView) {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_down)
+        animation.duration = 150
+
+        getAllViews(b.layNavigationBottom).forEach {
+            /* set the background to panelBackground2 and reset the color to iconColor */
+
+            it.setBackgroundResource(R.color.panelBackground2)
+            (it as ShapeableImageView).setColorFilter(
+                getResourceColor(R.color.iconColor),
+                PorterDuff.Mode.SRC_IN
+            )
+        }
+
+        view.setBackgroundResource(R.color.theme)
+        view.setColorFilter(getResourceColor(R.color.black), PorterDuff.Mode.SRC_IN)
+        view.startAnimation(animation)
+    }
+/* navigation bottom view change color and animation */
+
+
+
+
+    private fun loadAccounts(searchQuery: String = "") {
+        val adapter = AccountAdapter(this)
+
+        disableSelectionMode()
+        entityType = "account"
+
+        b.rcMain.adapter = adapter
+        b.rcMain.layoutManager = LinearLayoutManager(this)
+
+        if (searchQuery.isEmpty()) {
+            databaseViewModel.allAccounts.observe(this) { accounts ->
+                adapter.accounts = accounts
+
+                showEmptyList(accounts.isEmpty())
+                b.txtSearch.isEnabled = accounts.isNotEmpty()
+            }
+        } else {
+            databaseViewModel.setAccountSearchQuery(searchQuery)
+            databaseViewModel.accountSearchResults.observe(this@MainActivity) { accounts ->
+                adapter.accounts = accounts
+                showEmptyList(accounts.isEmpty())
+            }
+        }
+
+        adapter.setOnItemClickListener(object : AccountAdapter.OnItemClickListener {
+            override fun onItemClick(
+                view: View, account: Account
+            ) {  /* if the item was on the list remove it, otherwise add new item to the list */
+                if (selectionModeActivated) {
+                    if (removeSelectedItem(view, account)) {
+                        view.setBackgroundColor(getResourceColor(R.color.panelBackground))
+                        changeLayoutViewsForeground(view, false)
+                    } else {
+                        addNewSelectedItem(view, account)
+
+                        view.setBackgroundColor(getResourceColor(R.color.theme))
+                        changeLayoutViewsForeground(view, true)
+                    }
+
+                    /* if nothing is selected disable edit mode */
+                    if (selectedItems.isEmpty()) {
+                        disableSelectionMode()
+                    }
+                } else {
+                    Dialogs.accountDetails(this@MainActivity, account)
+                }
+            }
+
+            override fun onItemLongClick(view: View, account: Account) {
+                if (!selectionModeActivated) {
+                    enableSelectionMode()
+
+                    addNewSelectedItem(view, account)
+                    view.setBackgroundColor(getResourceColor(R.color.theme))
+                    changeLayoutViewsForeground(view, true)
+                }
+            }
+        })
+    }
+
+/* Main Page adapter class
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+
+class MainPagerAdapter(var activity: AppCompatActivity, private var fragments: List<Fragment>) :
+    FragmentStateAdapter(activity) {
+
+    override fun getItemCount(): Int {
+        return fragments.size
+    }
+
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
+    }
+}
+/* Main Page adapter class
+
+
+
+/* Swipe Listener
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupSwipeListener() {
+        guestDetectorCompat =
+            GestureDetectorCompat(this, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onFling(
+                    e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float
+                ): Boolean {
+                    val deltaX = e2.x - e1!!.x
+
+                    if (abs(deltaX) > 150 && abs(velocityX) > 150) {
+                        if (deltaX > 0) {
+                            if (currentIndex == 1) {
+                                b.main.openDrawer(GravityCompat.START)
+                            } else if (currentIndex > 1) {
+                                currentIndex--
+
+                                disableSelectionMode()
+                                loadDatabaseTable()
+                            }
+                        } else {
+                            if (currentIndex < 4) {
+                                currentIndex++
+
+                                disableSelectionMode()
+                                loadDatabaseTable()
+                            }
+                        }
+
+                        return true
+                    }
+
+                    return false
+                }
+
+                override fun onDown(e: MotionEvent): Boolean {
+                    return true
+                }
+            })
+
+        b.scrollMain.setOnTouchListener { _, event ->
+            guestDetectorCompat.onTouchEvent(event)
+            false // Let ScrollView still handle vertical scrolling
+        }
+
+        b.rcMain.setOnTouchListener { _, event ->
+            guestDetectorCompat.onTouchEvent(event)
+            false // Let ScrollView still handle vertical scrolling
+        }
+    }
+
+/* Swipe Listener

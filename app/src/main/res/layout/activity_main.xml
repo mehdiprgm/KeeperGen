@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="false"
+    tools:context=".activity.MainActivity">
+
+    <ScrollView
+        android:id="@+id/scrollMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgMenu"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="Menu"
+                android:padding="5dp"
+                android:src="@drawable/ic_menu"
+                app:backgroundTint="@color/background"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvAppName"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvAppName"
+                style="@style/TextBig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Accounts"
+                app:layout_constraintStart_toEndOf="@+id/imgMenu"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnDelete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Delete"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:fabCustomSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvAppName"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnShare"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Share"
+                android:src="@drawable/ic_share"
+                android:visibility="gone"
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:fabCustomSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
+                app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+                app:layout_constraintTop_toTopOf="@+id/btnDelete"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnCopy"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Copy"
+                android:src="@drawable/ic_copy"
+                android:visibility="gone"
+                app:backgroundTint="@android:color/transparent"
+                app:elevation="0dp"
+                app:fabCustomSize="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnShare"
+                app:layout_constraintEnd_toStartOf="@+id/btnShare"
+                app:layout_constraintTop_toTopOf="@+id/btnShare"
+                tools:ignore="HardcodedText" />
+
+            <EditText
+                android:id="@+id/txtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/edittext_search"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="10dp"
+                android:hint="Search"
+                android:inputType="text"
+                android:padding="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvAppName"
+                tools:ignore="Autofill,HardcodedText" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSearch" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieEmpty"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/empty_box"
+                app:lottie_speed="2" />
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                style="@style/TextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Noting found"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/lottieEmpty"
+                app:layout_constraintStart_toStartOf="@+id/lottieEmpty"
+                app:layout_constraintTop_toBottomOf="@+id/lottieEmpty"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvAdd"
+                style="@style/TextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Press + button to add new item"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/lottieEmpty"
+                app:layout_constraintStart_toStartOf="@+id/lottieEmpty"
+                app:layout_constraintTop_toBottomOf="@+id/tvEmpty"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAdd"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="-20dp"
+                android:backgroundTint="@color/theme"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_add"
+                app:elevation="10dp"
+                app:fabCustomSize="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/black" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fillViewport="true"
+                android:scrollbars="none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/layNavigationBottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottom_navigation_background"
+                    android:baselineAligned="false"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/layAccounts"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/imgAccount"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_planet"
+                            app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                        <TextView
+                            style="@style/TextSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="Accounts"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layBankCards"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/imgBankCard"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_credit_card"
+                            app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                        <TextView
+                            style="@style/TextSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="Bank Cards"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layContacts"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/imgContact"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_phone2"
+                            app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                        <TextView
+                            style="@style/TextSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="Contacts"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layNotes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/imgNotes"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@android:color/transparent"
+                            android:padding="5dp"
+                            android:scaleType="center"
+                            android:src="@drawable/ic_note"
+                            app:shapeAppearanceOverlay="@style/CircleImageView" />
+
+                        <TextView
+                            style="@style/TextSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:text="Notes"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:itemIconPadding="20dp"
+        app:itemIconSize="25dp"
+        app:itemIconTint="@null"
+        app:itemTextAppearance="@style/TextNormal"
+        app:menu="@menu/menu_nav" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

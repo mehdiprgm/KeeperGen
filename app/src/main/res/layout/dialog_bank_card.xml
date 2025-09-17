@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="10dp"
+            android:text="Create new bank card"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Please insert your bank card information"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvCardName"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="Card name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <EditText
+            android:id="@+id/txtCardName"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_edit_smaller"
+            android:drawablePadding="10dp"
+            android:hint="Mehdi"
+            android:inputType="text"
+            android:maxLength="100"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvCardName"
+            app:layout_constraintTop_toBottomOf="@+id/tvCardName" />
+
+        <TextView
+            android:id="@+id/tvCardNumber"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Card number"
+            app:layout_constraintStart_toStartOf="@+id/tvCardName"
+            app:layout_constraintTop_toBottomOf="@+id/txtCardName" />
+
+        <TextView
+            android:id="@+id/tvCardNumberLimiter"
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="0 / 16"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/txtCardNumber"
+            app:layout_constraintTop_toTopOf="@+id/tvCardNumber" />
+
+        <EditText
+            android:id="@+id/txtCardNumber"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_credit_card_smaller"
+            android:drawablePadding="10dp"
+            android:hint="5859 8310 3995 0828"
+            android:inputType="numberSigned"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvCardNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvCardNumber" />
+
+        <View
+            android:id="@+id/viewSep2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
+            android:background="@color/foreground_less"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCardNumber" />
+
+        <TextView
+            android:id="@+id/tvCvv2"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="Cvv2"
+            app:layout_constraintStart_toStartOf="@+id/tvCardNumber"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep2" />
+
+        <TextView
+            android:id="@+id/tvCvv2Limiter"
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="0 / 4"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/txtCvv2"
+            app:layout_constraintTop_toTopOf="@+id/tvCvv2" />
+
+        <EditText
+            android:id="@+id/txtCvv2"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_key_smaller"
+            android:drawablePadding="10dp"
+            android:hint="1361"
+            android:inputType="number"
+            android:maxLength="4"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvCvv2"
+            app:layout_constraintTop_toBottomOf="@+id/tvCvv2" />
+
+        <LinearLayout
+            android:id="@+id/layDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+             android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCvv2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMonth"
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="Month" />
+
+                <EditText
+                    android:id="@+id/txtMonth"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/ic_calendar_smaller"
+                    android:drawablePadding="10dp"
+                    android:hint="November"
+                    android:inputType="numberSigned"
+                    android:maxLength="2"
+                    android:padding="10dp"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvYear"
+                    style="@style/TextNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:text="Year" />
+
+                <EditText
+                    android:id="@+id/txtYear"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/ic_calendar_smaller"
+                    android:drawablePadding="10dp"
+                    android:hint="2025"
+                    android:inputType="numberSigned"
+                    android:maxLength="2"
+                    android:padding="10dp"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPassword"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Password"
+            app:layout_constraintStart_toStartOf="@+id/layDate"
+            app:layout_constraintTop_toBottomOf="@+id/layDate" />
+
+        <EditText
+            android:id="@+id/txtPassword"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_password_smaller"
+            android:drawablePadding="10dp"
+            android:hint="********"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvPassword"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
+
+        <Button
+            android:id="@+id/btnApply"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_radius"
+            android:text="Update information"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

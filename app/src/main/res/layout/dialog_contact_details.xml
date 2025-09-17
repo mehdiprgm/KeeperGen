@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/theme"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_phone2"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/TextNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="0.8"
+                android:background="@android:color/transparent"
+                android:text="Contact details"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDetails"
+            style="@style/CardViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvNameTitle"
+                    style="@style/TextNormal"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mehdi"
+                    android:textColor="@color/foreground_less" />
+
+                <TextView
+                    android:id="@+id/tvPhoneNumberTitle"
+                    style="@style/TextNormal"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Phone number" />
+
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="09032748106"
+                    android:textColor="@color/foreground_less" />
+
+                <TextView
+                    android:id="@+id/tvCommentTitle"
+                    style="@style/TextNormal"
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Comment" />
+
+                <TextView
+                    android:id="@+id/tvComment"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No comment"
+                    android:textColor="@color/foreground_less" />
+
+                <TextView
+                    android:id="@+id/tvEdit"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="Edit"
+                    android:textColor="@color/theme"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

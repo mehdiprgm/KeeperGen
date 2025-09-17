@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/TextBig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="10dp"
+            android:text="Create new Contact"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Please insert your contact information"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+        <EditText
+            android:id="@+id/txtName"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_edit_smaller"
+            android:drawablePadding="10dp"
+            android:hint="Mehdi"
+            android:inputType="text"
+            android:maxLength="100"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:text="Phone number"
+            app:layout_constraintStart_toStartOf="@+id/txtName"
+            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+        <TextView
+            android:id="@+id/tvPhoneNumberLimiter"
+            style="@style/TextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="0 / 16"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/txtPhoneNumber"
+            app:layout_constraintTop_toTopOf="@+id/tvPhoneNumber" />
+
+        <EditText
+            android:id="@+id/txtPhoneNumber"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_phone2_smaller"
+            android:drawablePadding="10dp"
+            android:hint="0903 - 2748106"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:text="Comment"
+            app:layout_constraintStart_toStartOf="@+id/txtPhoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumber" />
+
+        <EditText
+            android:id="@+id/txtComment"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_background"
+            android:drawableStart="@drawable/ic_comment2_smaller"
+            android:drawablePadding="10dp"
+            android:hint="Type anything you want"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintStart_toStartOf="@+id/tvComment"
+            app:layout_constraintTop_toBottomOf="@+id/tvComment" />
+
+        <Button
+            android:id="@+id/btnApply"
+            style="@style/TextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/button_radius"
+            android:text="Update information"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtComment" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
