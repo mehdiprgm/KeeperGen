@@ -22,14 +22,6 @@ Still needs improvement to become perfect.
 
 Open project in Android Studio and wait until gradle build to finish or manualy create a project and source codes and resources to the project and sync it.
 
-## 🖼️ Demo
-
-![App Screenshot](demo/screenshots/1.jpg)
-![App Screenshot](demo/screenshots/2.jpg)
-![App Screenshot](demo/screenshots/3.jpg)
-![App Screenshot](demo/screenshots/4.jpg)
-![App Screenshot](demo/screenshots/5.jpg)
-
 
 ## 👦🏾 Authors
 
