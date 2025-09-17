@@ -176,7 +176,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@android:color/transparent"
                     android:drawableStart="@drawable/ic_dot"
-                    android:text="All new user interface for better exprience" />
+                    android:text="Complete new user interface for better exprience" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
