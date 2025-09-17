@@ -1,10 +1,11 @@
 
-#  ☣️ KeeperGen ☢️
+# ☢️ KeeperGen ☣️
 
 KeeperGen is your secure digital vault. Safely store and manage all your passwords, bank cards, and personal notes with advanced encryption. Easily generate unique passwords and customize your experience in Settings.
 
+The project is still beta so expect few bugs.
 
-## Features
+## ✨ Features
 
 - Store information in the device even when you're offline
 - Import all your device contacts into the application database with one click
@@ -12,16 +13,16 @@ KeeperGen is your secure digital vault. Safely store and manage all your passwor
 - Sync your information with cloud database, so you can access it anywhere you want
 
 
-## Optimizations
+## 🛠️ Optimizations
 
 The code is well optimized and fixed huge amount of bugs.
 Still needs improvement to become perfect.
 
-## Installation
+## ⚙️ Installation
 
 Open project in Android Studio and wait until gradle build to finish or manualy create a project and source codes and resources to the project and sync it.
 
-## Demo
+## 🖼️ Demo
 
 ![App Screenshot](demo/screenshots/1.jpg)
 ![App Screenshot](demo/screenshots/2.jpg)
@@ -30,7 +31,6 @@ Open project in Android Studio and wait until gradle build to finish or manualy 
 ![App Screenshot](demo/screenshots/5.jpg)
 
 
-## Authors
+## 👦🏾 Authors
 
 - [@Mehdi Lavasani](https://github.com/mehdiprgm)
-
