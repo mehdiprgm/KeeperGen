@@ -3,8 +3,6 @@
 
 KeeperGen is your secure digital vault. Safely store and manage all your passwords, bank cards, and personal notes with advanced encryption. Easily generate unique passwords and customize your experience in Settings.
 
-The project is still beta so expect few bugs.
-
 ## ✨ Features
 
 - Store information in the device even when you're offline
