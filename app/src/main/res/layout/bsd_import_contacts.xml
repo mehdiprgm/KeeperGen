@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bottom_sheet_dialog_background"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layCamera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgCamera"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Account"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/CircleImageView"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvCamera"
+                style="@style/TextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Camera"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgCamera"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAccountDescription"
+                style="@style/TextSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Take new photo from device camera"
+                android:textColor="@color/foreground_less"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.468"
+                app:layout_constraintStart_toStartOf="@+id/tvCamera"
+                app:layout_constraintTop_toBottomOf="@+id/tvCamera" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/viewSep1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/panelBackground2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layCamera" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layGallery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep1">
+
+            <ImageView
+                android:id="@+id/imgGallery"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Account"
+                android:src="@drawable/ic_picture"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/CircleImageView"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvGallery"
+                style="@style/TextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Gallery"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgGallery"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvGalleryDescription"
+                style="@style/TextSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Use AI model to convert image from gallery to the database"
+                android:textColor="@color/foreground_less"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvGallery"
+                app:layout_constraintTop_toBottomOf="@+id/tvGallery" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+            android:id="@+id/viewSep2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/panelBackground2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layGallery" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewSep2">
+
+            <ImageView
+                android:id="@+id/imgDevice"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Bank Card"
+                android:src="@drawable/ic_phone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/CircleImageView"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/tvDevice"
+                style="@style/TextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Device"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgDevice"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvBankCardDescription"
+                style="@style/TextSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Import contacts from device into the database"
+                android:textColor="@color/foreground_less"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDevice"
+                app:layout_constraintTop_toBottomOf="@+id/tvDevice" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
