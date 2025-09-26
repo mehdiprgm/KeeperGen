@@ -13,6 +13,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
+import org.zendev.keepergen.activity.database.NewAccountActivity
+import org.zendev.keepergen.activity.database.NewBankCardActivity
+import org.zendev.keepergen.activity.database.NewContactActivity
+import org.zendev.keepergen.activity.database.NewNoteActivity
 import org.zendev.keepergen.databinding.BsdNewItemBinding
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
@@ -29,9 +33,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         b = BsdNewItemBinding.inflate(layoutInflater)
         return b.root
@@ -54,45 +56,133 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
         when (view?.id) {
             R.id.layAccount -> {
                 lifecycleScope.launch {
-                    val newAccount = Dialogs.account(context, null)
-                    if (newAccount != null) {
-                        databaseViewModel.addAccount(newAccount)
-                    }
+                    val accountName = Dialogs.textInput(
+                        context,
+                        title = "Account name",
+                        message = "Please enter your account name",
+                        hint = "New Account",
+                        defaultText = "",
+                        isPassword = false,
+                        isNumber = false,
+                        cancellable = true
+                    )
 
-                    dismiss()
+                    if (accountName.isNotEmpty()) {
+                        val account = databaseViewModel.getAccount(accountName)
+                        if (account == null) {
+                            val intent = Intent(context, NewAccountActivity::class.java)
+                            intent.putExtra("Name", accountName)
+
+                            startActivity(intent)
+                            dismiss()
+                        } else {
+                            Dialogs.confirm(
+                                context,
+                                title = "Account exists",
+                                message = "Select other name for this account",
+                                DialogType.Error
+                            )
+                        }
+                    }
                 }
             }
 
             R.id.layBankCard -> {
                 lifecycleScope.launch {
-                    val newBankCard = Dialogs.bankCard(context, null)
-                    if (newBankCard != null) {
-                        databaseViewModel.addBankCard(newBankCard)
-                    }
+                    val bankCardName = Dialogs.textInput(
+                        context,
+                        title = "Card name",
+                        message = "Please enter your card name",
+                        hint = "New card",
+                        defaultText = "",
+                        isPassword = false,
+                        isNumber = false,
+                        cancellable = true
+                    )
 
-                    dismiss()
+                    if (bankCardName.isNotEmpty()) {
+                        val bankCard = databaseViewModel.getBankCard(bankCardName)
+                        if (bankCard == null) {
+                            val intent = Intent(context, NewBankCardActivity::class.java)
+                            intent.putExtra("CardName", bankCardName)
+
+                            startActivity(intent)
+                            dismiss()
+                        } else {
+                            Dialogs.confirm(
+                                context,
+                                title = "Bank Card exists",
+                                message = "Select other name for this card",
+                                DialogType.Error
+                            )
+                        }
+                    }
                 }
             }
 
             R.id.layContact -> {
                 lifecycleScope.launch {
-                    val newContact = Dialogs.contact(context, null)
-                    if (newContact != null) {
-                        databaseViewModel.addContact(newContact)
-                    }
+                    val contactName = Dialogs.textInput(
+                        context,
+                        title = "Name",
+                        message = "Please enter your contact name",
+                        hint = "New contact",
+                        defaultText = "",
+                        isPassword = false,
+                        isNumber = false,
+                        cancellable = true
+                    )
 
-                    dismiss()
+                    if (contactName.isNotEmpty()) {
+                        val contact = databaseViewModel.getContact(contactName)
+                        if (contact == null) {
+                            val intent = Intent(context, NewContactActivity::class.java)
+                            intent.putExtra("Name", contactName)
+
+                            startActivity(intent)
+                            dismiss()
+                        } else {
+                            Dialogs.confirm(
+                                context,
+                                title = "Contact exists",
+                                message = "Select other name for this contact",
+                                DialogType.Error
+                            )
+                        }
+                    }
                 }
             }
 
             R.id.layNote -> {
                 lifecycleScope.launch {
-                    val newNote = Dialogs.note(context, null)
-                    if (newNote != null) {
-                        databaseViewModel.addNote(newNote)
-                    }
+                    val noteName = Dialogs.textInput(
+                        context,
+                        title = "Name",
+                        message = "Please enter your note name",
+                        hint = "New note",
+                        defaultText = "",
+                        isPassword = false,
+                        isNumber = false,
+                        cancellable = true
+                    )
 
-                    dismiss()
+                    if (noteName.isNotEmpty()) {
+                        val note = databaseViewModel.getNote(noteName)
+                        if (note == null) {
+                            val intent = Intent(context, NewNoteActivity::class.java)
+                            intent.putExtra("Name", noteName)
+
+                            startActivity(intent)
+                            dismiss()
+                        } else {
+                            Dialogs.confirm(
+                                context,
+                                title = "Note exists",
+                                message = "Select other name for this note",
+                                DialogType.Error
+                            )
+                        }
+                    }
                 }
             }
 

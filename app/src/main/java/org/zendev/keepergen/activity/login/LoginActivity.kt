@@ -86,23 +86,23 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                                 setResult(RESULT_OK)
                                 finish()
                             } else {
-                                Dialogs.confirm(
-                                    this@LoginActivity,
-                                    R.drawable.ic_error,
-                                    "Login failed",
-                                    "The username or password is invalid."
-                                )
+//                                Dialogs.confirm(
+//                                    this@LoginActivity,
+//                                    R.drawable.ic_error,
+//                                    "Login failed",
+//                                    "The username or password is invalid."
+//                                )
                             }
                         }
                     } else {
                         when (response.code()) {
                             404 -> {
-                                Dialogs.confirm(
-                                    this@LoginActivity,
-                                    R.drawable.ic_error,
-                                    "No user found",
-                                    "The username is invalid."
-                                )
+//                                Dialogs.confirm(
+//                                    this@LoginActivity,
+//                                    R.drawable.ic_error,
+//                                    "No user found",
+//                                    "The username is invalid."
+//                                )
                             }
                         }
                     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -66,19 +67,19 @@ class AccountAdapter(private val context: Context) :
         }
 
         when (account.accountType) {
-            0 -> {
+            "Social media" -> {
                 resizeTextViewDrawable(context, b.tvAccountName, R.drawable.ic_telegram, 25)
             }
 
-            1 -> {
+            "Website" -> {
                 resizeTextViewDrawable(context, b.tvAccountName, R.drawable.ic_chrome, 25)
             }
 
-            2 -> {
+            "Email address" -> {
                 resizeTextViewDrawable(context, b.tvAccountName, R.drawable.ic_google, 25)
             }
 
-            3 -> {
+            "Others" -> {
                 resizeTextViewDrawable(context, b.tvAccountName, R.drawable.ic_earth, 25)
             }
         }

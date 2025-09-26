@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imgTheme"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="Theme"
+        android:src="@drawable/ic_sun"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:id="@+id/imgLogo"
@@ -11,10 +25,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
+        android:contentDescription="Logo"
         android:src="@drawable/ic_nuclear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/theme" />
+        app:tint="@color/theme"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvAppName"
@@ -34,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="1.1"
+        android:text="1.7"
         app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
         app:layout_constraintStart_toEndOf="@+id/tvAppName" />
 

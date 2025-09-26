@@ -20,6 +20,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -33,11 +34,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.zendev.keepergen.activity.login.LoginActivity
-import org.zendev.keepergen.activity.user.ManageProfileActivity
 import org.zendev.keepergen.adapter.recyclerview.AccountAdapter
 import org.zendev.keepergen.adapter.recyclerview.BankCardAdapter
 import org.zendev.keepergen.adapter.recyclerview.ContactAdapter
@@ -47,17 +44,23 @@ import org.zendev.keepergen.database.entity.Account
 import org.zendev.keepergen.database.entity.BankCard
 import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.database.entity.Note
+import org.zendev.keepergen.dialog.BottomDialogAccountDetails
+import org.zendev.keepergen.dialog.BottomDialogBankCardDetails
+import org.zendev.keepergen.dialog.BottomDialogContactDetails
 import org.zendev.keepergen.dialog.BottomDialogNewItem
+import org.zendev.keepergen.dialog.BottomDialogNoteDetails
+import org.zendev.keepergen.dialog.DialogType
 import org.zendev.keepergen.dialog.Dialogs
+import org.zendev.keepergen.tools.changeTheme
 import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.disableScreenPadding
 import org.zendev.keepergen.tools.getAllViews
+import org.zendev.keepergen.tools.isDarkTheme
 import org.zendev.keepergen.tools.lockActivityOrientation
 import org.zendev.keepergen.tools.preferencesName
 import org.zendev.keepergen.tools.selectedItems
 import org.zendev.keepergen.tools.selectedViews
 import org.zendev.keepergen.tools.shareText
-import org.zendev.keepergen.viewmodel.ApiViewModel
 
 class MainActivity : AppCompatActivity(), View.OnClickListener,
     NavigationView.OnNavigationItemSelectedListener {
@@ -94,7 +97,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         setupNavigationDrawer()
         setupViewModel()
         setupSearchBar()
-        setupNavigationHeaderTextViewRotation()
+        setupNavigationHeader()
 
         setOnBackPressedListener()
 
@@ -191,37 +194,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                     when (firstItem) {
                         is Account -> {
                             for (account in selectedItems) {
-                                val tmp = account as Account
-
-                                sb.append("Name: ${tmp.name}\nPhone number: ${tmp.phoneNumber}\nUsername: ${tmp.username}\nPassword: ${tmp.password}\nComment: ${tmp.comment}")
-                                sb.append("\n\n")
+                                sb.append(account)
                             }
                         }
 
                         is BankCard -> {
                             for (bankCard in selectedItems) {
-                                val tmp = bankCard as BankCard
-
-                                sb.append("Card name: ${tmp.cardName}\nCard number: ${tmp.cardNumber}\nDate: ${tmp.year} / ${tmp.month}\nCvv2: ${tmp.cvv2}\nPassword: ${tmp.password}")
-                                sb.append("\n\n")
+                                sb.append(bankCard)
                             }
                         }
 
                         is Contact -> {
                             for (contact in selectedItems) {
-                                val tmp = contact as Contact
-
-                                sb.append("Name: ${tmp.name}\nPhone number: ${tmp.phoneNumber}\nComment: ${tmp.comment}")
-                                sb.append("\n\n")
+                                sb.append(contact)
                             }
                         }
 
                         is Note -> {
                             for (note in selectedItems) {
-                                val tmp = note as Note
-
-                                sb.append("Name: ${tmp.name}\nContent: ${tmp.content}\nModify date: ${tmp.modifyDate}")
-                                sb.append("\n\n")
+                                sb.append(note)
                             }
                         }
                     }
@@ -241,37 +232,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                     when (firstItem) {
                         is Account -> {
                             for (account in selectedItems) {
-                                val tmp = account as Account
-
-                                sb.append("Name: ${tmp.name}\nPhone number: ${tmp.phoneNumber}\nUsername: ${tmp.username}\nPassword: ${tmp.password}\nComment: ${tmp.comment}")
-                                sb.append("\n\n")
+                                sb.append(account)
                             }
                         }
 
                         is BankCard -> {
                             for (bankCard in selectedItems) {
-                                val tmp = bankCard as BankCard
-
-                                sb.append("Card name: ${tmp.cardName}\nCard number: ${tmp.cardNumber}\nDate: ${tmp.year} / ${tmp.month}\nCvv2: ${tmp.cvv2}\nPassword: ${tmp.password}")
-                                sb.append("\n\n")
+                                sb.append(bankCard)
                             }
                         }
 
                         is Contact -> {
                             for (contact in selectedItems) {
-                                val tmp = contact as Contact
-
-                                sb.append("Name: ${tmp.name}\nPhone number: ${tmp.phoneNumber}\nComment: ${tmp.comment}")
-                                sb.append("\n\n")
+                                sb.append(contact)
                             }
                         }
 
                         is Note -> {
                             for (note in selectedItems) {
-                                val tmp = note as Note
-
-                                sb.append("Name: ${tmp.name}\nContent: ${tmp.content}\nModify date: ${tmp.modifyDate}")
-                                sb.append("\n\n")
+                                sb.append(note)
                             }
                         }
                     }
@@ -320,9 +299,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
             R.id.menuProfile -> {
                 Dialogs.confirm(
                     this,
-                    R.drawable.ic_warning,
-                    "Not available",
-                    "The sync feature is not complete and can't be used right now."
+                    title = "Not available",
+                    message = "The sync feature is not complete and can't be used right now.",
+                    DialogType.Error
                 )
 //                try {
 //                    val pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
@@ -401,9 +380,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         })
     }
 
-    private fun setupNavigationHeaderTextViewRotation() {
+    private fun setupNavigationHeader() {
         val view = b.navMain.getHeaderView(0)
+        val pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
+
         val imgLogo = view.findViewById<ImageView>(R.id.imgLogo)
+        val imgTheme = view.findViewById<ImageView>(R.id.imgTheme)
+
         val animator = ObjectAnimator.ofFloat(imgLogo, View.ROTATION, 0f, 360f)
 
         animator.duration = 5000
@@ -412,6 +395,42 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         animator.interpolator = LinearInterpolator()
 
         animator.start()
+
+        when (pref.getInt("Theme", 0)) {
+            0 -> {
+                imgTheme.setImageResource(R.drawable.ic_moon)
+            }
+
+            1 -> {
+                imgTheme.setImageResource(R.drawable.ic_sun)
+            }
+
+            2 -> {
+                if (isDarkTheme(this)) {
+                    imgTheme.setImageResource(R.drawable.ic_sun)
+                } else {
+                    imgTheme.setImageResource(R.drawable.ic_moon)
+                }
+            }
+        }
+
+        imgTheme.setOnClickListener {
+            if (isDarkTheme(this)) {
+                changeTheme(0)
+                imgTheme.setImageResource(R.drawable.ic_moon)
+
+                pref.edit {
+                    putInt("Theme", 0)
+                }
+            } else {
+                changeTheme(1)
+                imgTheme.setImageResource(R.drawable.ic_sun)
+
+                pref.edit {
+                    putInt("Theme", 1)
+                }
+            }
+        }
     }
 
     private fun setupNavigationDrawer() {
@@ -432,21 +451,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
             /* Reset all imageview color to iconColor */
             if (it is ShapeableImageView) {
                 it.setColorFilter(
-                    getResourceColor(R.color.iconColor), PorterDuff.Mode.SRC_IN
+                    getResourceColor(R.color.foreground_less), PorterDuff.Mode.SRC_IN
                 )
             } else if (it is TextView) {/* Reset all textview font style to normal and remove bold one */
                 it.setTypeface(null, Typeface.NORMAL)
+                it.setTextColor(getResourceColor(R.color.foreground_less))
             }
         }
 
         /* The view is linearlayout, so get all the views in the layout and set their properties */
         getAllViews(view, false).forEach {
             if (it is ShapeableImageView) {
-                it.setBackgroundResource(R.color.theme)
-                it.setColorFilter(getResourceColor(R.color.black), PorterDuff.Mode.SRC_IN)
+                it.setColorFilter(getResourceColor(R.color.theme), PorterDuff.Mode.SRC_IN)
                 it.startAnimation(animation)
             } else if (it is TextView) {
                 it.setTypeface(null, Typeface.BOLD)
+                it.setTextColor(getResourceColor(R.color.theme))
             }
         }
     }
@@ -520,7 +540,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                         disableSelectionMode()
                     }
                 } else {
-                    //load information in bottom sheet dialog
+                    val accountDetailsDialog =
+                        BottomDialogAccountDetails(this@MainActivity, account)
+                    accountDetailsDialog.show(supportFragmentManager, "Account Details")
                 }
             }
 
@@ -571,7 +593,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                         disableSelectionMode()
                     }
                 } else {
-                    //load information in bottom sheet dialog
+                    val bankCardDetailsDialog =
+                        BottomDialogBankCardDetails(this@MainActivity, bankCard)
+                    bankCardDetailsDialog.show(supportFragmentManager, "Bank Card Details")
                 }
             }
 
@@ -622,7 +646,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                         disableSelectionMode()
                     }
                 } else {
-                    //load information in bottom sheet dialog
+                    val contactDetailsDialog =
+                        BottomDialogContactDetails(this@MainActivity, contact)
+                    contactDetailsDialog.show(supportFragmentManager, "Contact Details")
                 }
             }
 
@@ -673,7 +699,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                         disableSelectionMode()
                     }
                 } else {
-                    //load information in bottom sheet dialog
+                    val noteDetailsDialog = BottomDialogNoteDetails(this@MainActivity, note)
+                    noteDetailsDialog.show(supportFragmentManager, "Note Details")
                 }
             }
 

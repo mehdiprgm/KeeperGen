@@ -12,4 +12,8 @@ data class Note(
     var name: String,
     var content: String,
     var modifyDate: String
-) : Serializable
+) : Serializable {
+    override fun toString(): String {
+        return "Name: $name\nContent: $content\nModify Date: $modifyDate\n\n"
+    }
+}

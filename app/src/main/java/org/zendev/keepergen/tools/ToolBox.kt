@@ -10,6 +10,7 @@ import android.annotation.SuppressLint
 import android.app.KeyguardManager
 import android.content.Context.KEYGUARD_SERVICE
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -17,18 +18,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.checkbox.MaterialCheckBox
 import org.zendev.keepergen.R
-import org.zendev.keepergen.api.model.User
+import org.zendev.keepergen.dialog.DialogType
 import org.zendev.keepergen.dialog.Dialogs
-import retrofit2.Response
 import java.util.Calendar
 import java.util.Locale
 import kotlin.random.Random
@@ -137,6 +138,11 @@ fun changeTheme(value: Int) {
     }
 }
 
+fun isDarkTheme(context: Context): Boolean {
+    val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+    return nightModeFlags == Configuration.UI_MODE_NIGHT_YES
+}
+
 fun getAllViews(view: View, includeViewGroup: Boolean): MutableList<View> {
     val result = mutableListOf<View>()
 
@@ -193,9 +199,9 @@ fun isDeviceConnected(context: Context): Boolean {
     } else {
         Dialogs.confirm(
             context,
-            R.drawable.ic_wifi_off,
-            "No internet detected",
-            "This device is not connected to the internet."
+            title = "No internet connection",
+            message = "This device is not connected to the internet.",
+            dialogType = DialogType.Error
         )
 
         return false
@@ -204,8 +210,7 @@ fun isDeviceConnected(context: Context): Boolean {
 
 fun disableActivityScreenShot(activity: Activity) {
     activity.window.setFlags(
-        WindowManager.LayoutParams.FLAG_SECURE,
-        WindowManager.LayoutParams.FLAG_SECURE
+        WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE
     )
 }
 
@@ -219,46 +224,65 @@ fun resizeTextViewDrawable(context: Context, textView: TextView, drawableIcon: I
     textView.setCompoundDrawables(drawable, null, null, null)
 }
 
-    fun generatePassword(
-        length: Int, includeNumbers: Boolean, includeSymbols: Boolean, toLowerCase: Boolean
-    ): String {
-        val letters = ('A'..'Z')
-        val numbers = ('0'..'9')
-        val symbols = listOf('!', '@', '#', '$', '%', '^', '&', '*')
+fun generatePassword(
+    length: Int, includeNumbers: Boolean, includeSymbols: Boolean, toLowerCase: Boolean
+): String {
+    val letters = ('A'..'Z')
+    val numbers = ('0'..'9')
+    val symbols = listOf('!', '@', '#', '$', '%', '^', '&', '*')
 
-        val charPool = buildList {
-            addAll(letters)
-            if (includeNumbers) addAll(numbers)
-            if (includeSymbols) addAll(symbols)
-        }
-
-        if (charPool.isEmpty()) {
-            throw IllegalArgumentException("Character pool is empty.")
-        }
-
-        val password = (1..length).map { charPool.random() }.joinToString("")
-
-        return if (toLowerCase) password.lowercase() else password
+    val charPool = buildList {
+        addAll(letters)
+        if (includeNumbers) addAll(numbers)
+        if (includeSymbols) addAll(symbols)
     }
 
-    fun getPasswordStrength(password: String): Int {
-        var score = 0
-
-        if (password.length >= 8) score++
-        if (password.length >= 12) score++
-        if (password.length >= 16) score++
-
-        if (password.any { it.isDigit() }) score++
-        if (password.any { it.isUpperCase() }) score++
-        if (password.any { it.isLowerCase() }) score++
-        if (password.any { !it.isLetterOrDigit() }) score++
-
-        return score
+    if (charPool.isEmpty()) {
+        throw IllegalArgumentException("Character pool is empty.")
     }
+
+    val password = (1..length).map { charPool.random() }.joinToString("")
+
+    return if (toLowerCase) password.lowercase() else password
+}
+
+fun getPasswordStrength(password: String): Int {
+    var score = 0
+
+    if (password.length >= 8) score++
+    if (password.length >= 12) score++
+    if (password.length >= 16) score++
+
+    if (password.any { it.isDigit() }) score++
+    if (password.any { it.isUpperCase() }) score++
+    if (password.any { it.isLowerCase() }) score++
+    if (password.any { !it.isLetterOrDigit() }) score++
+
+    return score
+}
 
 fun disableScreenPadding(view: View) {
     ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main)) { v, insets ->
         v.setPadding(0, 0, 0, 0)
         insets
     }
+}
+
+fun switchFragment(
+    activity: AppCompatActivity, activeFragment: Fragment, newFragment: Fragment
+): Fragment {
+    if (newFragment == activeFragment) {
+        return newFragment
+    }
+
+    val transaction = activity.supportFragmentManager.beginTransaction()
+    // Hide the current active fragment
+    transaction.hide(activeFragment)
+    // Show the new fragment
+    transaction.show(newFragment)
+    // Commit the transaction
+    transaction.commit()
+
+    // Update the active fragment
+    return newFragment
 }

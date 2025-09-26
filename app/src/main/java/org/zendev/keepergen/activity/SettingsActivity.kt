@@ -1,29 +1,24 @@
 package org.zendev.keepergen.activity
 
-import android.Manifest
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.View
 import android.widget.CompoundButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.net.toUri
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
-import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.databinding.ActivitySettingsBinding
+import org.zendev.keepergen.dialog.BottomDialogImportContacts
 import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.changeTheme
+import org.zendev.keepergen.tools.disableScreenPadding
 import org.zendev.keepergen.tools.preferencesName
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
@@ -31,9 +26,6 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
     private lateinit var b: ActivitySettingsBinding
     private lateinit var pref: SharedPreferences
-    private lateinit var databaseViewModel: DatabaseViewModel
-
-    private var permissionRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,68 +33,44 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
 
         b = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(b.root)
+        disableScreenPadding(b.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        setupViewModel()
         loadSettings()
 
-        b.btnBack.setOnClickListener(this)
-
-        b.layBehaviour.setOnClickListener(this)
-        b.layDisplay.setOnClickListener(this)
-        b.layLockTimeout.setOnClickListener(this)
-        b.layScreenshot.setOnClickListener(this)
-        b.layChangePasscode.setOnClickListener(this)
-        b.layReportBug.setOnClickListener(this)
-        b.layDevice.setOnClickListener(this)
-
         b.switchConfirmChanges.setOnCheckedChangeListener(this)
-        b.switchScreenShot.setOnCheckedChangeListener(this)
+        b.switchTakeScreenshot.setOnCheckedChangeListener(this)
+
+        b.tvImportContacts.setOnClickListener(this)
+        b.tvChangePasscode.setOnClickListener(this)
+        b.tvReportBug.setOnClickListener(this)
+        b.tvTitle.setOnClickListener(this)
+
+        b.btnFollowSystem.setOnClickListener(this)
+        b.btnDarkMode.setOnClickListener(this)
+        b.btnLightMode.setOnClickListener(this)
+
+        b.btn5Seconds.setOnClickListener(this)
+        b.btn10Seconds.setOnClickListener(this)
+        b.btn15Seconds.setOnClickListener(this)
+        b.btn30Seconds.setOnClickListener(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.btnBack -> {
+            R.id.tvTitle -> {
                 finish()
             }
 
-            R.id.layBehaviour -> {
-                b.switchConfirmChanges.isChecked = !b.switchConfirmChanges.isChecked
+            R.id.tvImportContacts -> {
+                val importContactsDialog = BottomDialogImportContacts(this)
+                importContactsDialog.show(supportFragmentManager, "Import Contacts")
             }
 
-            R.id.layDisplay -> {
-                lifecycleScope.launch {
-                    val theme = pref.getInt("Theme", 2)
-                    val result = Dialogs.theme(this@SettingsActivity, theme)
-
-                    pref.edit {
-                        putInt("Theme", result)
-                        changeTheme(result)
-                    }
-                }
-            }
-
-            R.id.layLockTimeout -> {
-                lifecycleScope.launch {
-                    val timeout = pref.getInt("LockTimeout", 5)
-                    val newTimeout = Dialogs.lockTimeout(this@SettingsActivity, timeout)
-
-                    pref.edit {
-                        putInt("LockTimeout", newTimeout)
-                    }
-                }
-            }
-
-            R.id.layScreenshot -> {
-                b.switchScreenShot.isChecked = !b.switchScreenShot.isChecked
-            }
-
-            R.id.layChangePasscode -> {
+            R.id.tvChangePasscode -> {
                 lifecycleScope.launch {
                     val passcode = Dialogs.textInput(
                         this@SettingsActivity,
@@ -110,7 +78,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
                         "Please enter your new passcode",
                         "New passcode",
                         isPassword = true,
-                        isNumber = true
+                        isNumber = true,
+                        cancellable = true
                     )
 
                     if (passcode.isNotEmpty()) {
@@ -121,11 +90,56 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
 
-            R.id.layReportBug -> {
+            R.id.btnDarkMode -> {
+                pref.edit {
+                    putInt("Theme", 1)
+                    changeTheme(1)
+                }
+            }
+
+            R.id.btnLightMode -> {
+                pref.edit {
+                    putInt("Theme", 0)
+                    changeTheme(0)
+                }
+            }
+
+            R.id.btnFollowSystem -> {
+                pref.edit {
+                    putInt("Theme", 2)
+                    changeTheme(2)
+                }
+            }
+
+            R.id.btn5Seconds -> {
+                pref.edit {
+                    putInt("LockTimeout", 5)
+                }
+            }
+
+            R.id.btn10Seconds -> {
+                pref.edit {
+                    putInt("LockTimeout", 10)
+                }
+            }
+
+            R.id.btn15Seconds -> {
+                pref.edit {
+                    putInt("LockTimeout", 15)
+                }
+            }
+
+            R.id.btn30Seconds -> {
+                pref.edit {
+                    putInt("LockTimeout", 30)
+                }
+            }
+
+            R.id.tvReportBug -> {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-//                    Intent.setData = "mailto:mfcrisis2016@gmail.com".toUri()
-//                    putExtra(Intent.EXTRA_SUBJECT, "")
-//                    putExtra(Intent.EXTRA_TITLE, "Bug KEEPERGEN")
+                    data = "mailto:mfcrisis2016@gmail.com".toUri()
+                    putExtra(Intent.EXTRA_SUBJECT, "")
+                    putExtra(Intent.EXTRA_TITLE, "Bug KEEPERGEN")
                 }
 
                 /* optional: restrict to Gmail app if installed */
@@ -135,63 +149,22 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
                     startActivity(intent)
                 }
             }
-
-            R.id.layDevice -> {
-                if (ContextCompat.checkSelfPermission(
-                        this, Manifest.permission.READ_CONTACTS
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    lifecycleScope.launch {
-                        if (Dialogs.ask(
-                                this@SettingsActivity,
-                                R.drawable.ic_warning,
-                                "Import contacts",
-                                "Are you sure you want to start the operation?\n\nIf database contains contacts with same name they won't be added."
-                            )
-                        ) {
-                            val contacts = getDeviceContacts()
-
-                            for (contact in contacts) {
-                                val currentContact = databaseViewModel.getContact(contact.name)
-
-                                if (currentContact == null) {
-                                    databaseViewModel.addContact(contact)
-                                } else {
-                                    databaseViewModel.updateContact(contact)
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(
-                            this, Manifest.permission.READ_CONTACTS
-                        )
-                    ) {
-                        Dialogs.confirm(
-                            this,
-                            R.drawable.ic_error,
-                            "Permission denied",
-                            "The application needs your permission to access device contacts and it seems you denied it.\n\nYou have to enable the permissions manually by going into the application properties."
-                        )
-                    } else {
-                        ActivityCompat.requestPermissions(
-                            this, arrayOf(Manifest.permission.READ_CONTACTS), permissionRequestCode
-                        )
-                    }
-                }
-            }
         }
     }
 
     override fun onCheckedChanged(button: CompoundButton?, isChecked: Boolean) {
         when (button?.id) {
             R.id.switchConfirmChanges -> {
+                setSwitchText(button as SwitchMaterial)
+
                 pref.edit {
                     putBoolean("ConfirmChanges", isChecked)
                 }
             }
 
-            R.id.switchScreenShot -> {
+            R.id.switchTakeScreenshot -> {
+                setSwitchText(button as SwitchMaterial)
+
                 pref.edit {
                     putBoolean("Screenshot", isChecked)
                 }
@@ -199,41 +172,59 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    private fun setupViewModel() {
-        databaseViewModel = ViewModelProvider(this).get(DatabaseViewModel::class.java)
-    }
-
     private fun loadSettings() {
         pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
 
-        b.switchConfirmChanges.isChecked = pref.getBoolean("ConfirmChanges", false)
-        b.switchScreenShot.isChecked = pref.getBoolean("Screenshot", false)
-    }
+        /* Load theme settings */
+        val theme = pref.getInt("Theme", 0)
+        when (theme) {
+            0 -> {
+                b.btnLightMode.isChecked = true
+            }
 
-    private fun getDeviceContacts(): List<Contact> {
-        val contactsList = mutableListOf<Contact>()
+            1 -> {
+                b.btnDarkMode.isChecked = true
+            }
 
-        val cursor = contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI, arrayOf(
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-            ), null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC"
-        )
-
-        cursor?.use {
-            val nameIndex = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-            val numberIndex = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-
-            while (it.moveToNext()) {
-                val name = it.getString(nameIndex)
-                val number = it.getString(numberIndex)
-
-                contactsList.add(
-                    Contact(name = name, phoneNumber = number, comment = "No comment")
-                )
+            2 -> {
+                b.btnFollowSystem.isChecked = true
             }
         }
 
-        return contactsList
+        /* Load lock timeout */
+        val lockTimeout = pref.getInt("LockTimeout", 5)
+        when (lockTimeout) {
+            5 -> {
+                b.btn5Seconds.isChecked = true
+            }
+
+            10 -> {
+                b.btn10Seconds.isChecked = true
+            }
+
+            15 -> {
+                b.btn15Seconds.isChecked = true
+            }
+
+            30 -> {
+                b.btn30Seconds.isChecked = true
+            }
+        }
+
+        b.switchConfirmChanges.isChecked = pref.getBoolean("ConfirmChanges", false)
+        b.switchTakeScreenshot.isChecked = pref.getBoolean("Screenshot", false)
+
+        setSwitchText(b.switchConfirmChanges)
+        setSwitchText(b.switchTakeScreenshot)
+    }
+
+    private fun setSwitchText(switch: SwitchMaterial) {
+        if (switch.isChecked) {
+            switch.text = "Enabled"
+        } else {
+            switch.text = "Disabled"
+        }
     }
 }
+
+//b.layDisplay.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)

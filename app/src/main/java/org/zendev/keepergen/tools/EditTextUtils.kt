@@ -5,8 +5,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
-fun setEditTextLimiter(editText: EditText, textView: TextView, limit: Int, removeSpaces : Boolean = false) {
+fun setEditTextLimiter(
+    editText: EditText, textView: TextView, limit: Int, removeSpaces: Boolean = false
+) {
     editText.addTextChangedListener(object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
@@ -31,12 +35,28 @@ fun setEditTextLimiter(editText: EditText, textView: TextView, limit: Int, remov
     })
 }
 
-fun validateEditTextData(editText: EditText, condition: Boolean, errorMessage: String): Int {
+fun validateEditTextData(
+    editText: TextInputEditText, condition: Boolean, errorMessage: String
+): Int {
     if (condition) {
         editText.error = errorMessage
         return -1
     }
 
     editText.error = null
+    return 0
+}
+
+fun validateEditTextData(
+    textInputLayout: TextInputLayout, condition: Boolean, errorMessage: String
+): Int {
+    if (condition) {
+        textInputLayout.error = errorMessage
+        textInputLayout.isErrorEnabled = true
+
+        return -1
+    }
+
+    textInputLayout.isErrorEnabled = false
     return 0
 }

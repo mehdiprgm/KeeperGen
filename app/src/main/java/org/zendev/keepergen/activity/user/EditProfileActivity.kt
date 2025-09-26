@@ -60,12 +60,12 @@ class EditProfileActivity : AppCompatActivity(), View.OnClickListener {
                         finish()
                     } else {
                         CoroutineScope(Dispatchers.Main).launch {
-                            Dialogs.confirm(
-                                this@EditProfileActivity,
-                                R.drawable.ic_error,
-                                "Updating information failed",
-                                "Failed to update the user."
-                            )
+//                            Dialogs.confirm(
+//                                this@EditProfileActivity,
+//                                R.drawable.ic_error,
+//                                "Updating information failed",
+//                                "Failed to update the user."
+//                            )
                         }
                     }
 

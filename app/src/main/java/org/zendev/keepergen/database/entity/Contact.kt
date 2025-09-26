@@ -6,10 +6,13 @@ import java.io.Serializable
 
 @Entity(tableName = "Contacts")
 data class Contact(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var userId: Int = 0,
     var name: String,
     var phoneNumber: String,
     var comment: String
-) : Serializable
+) : Serializable {
+    override fun toString(): String {
+        return "Name: $name\nPhone Number: $phoneNumber\nComment: $comment\n\n"
+    }
+}

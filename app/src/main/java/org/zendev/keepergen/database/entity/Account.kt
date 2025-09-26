@@ -13,6 +13,10 @@ data class Account(
     var phoneNumber: String,
     var username: String,
     var password: String,
-    var accountType: Int,
+    var accountType: String,
     var comment: String
-) : Serializable
+) : Serializable {
+    override fun toString(): String {
+        return "Name: $name\nPhoneNumber: $phoneNumber\nUsername: $username\nPassword: $password\nAccountType: $accountType\nComment: $comment\n\n"
+    }
+}

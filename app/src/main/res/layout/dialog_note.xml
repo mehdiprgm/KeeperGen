@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/button_radius"
+            android:background="@drawable/button_background"
             android:text="Update information"
             android:textColor="@color/black"
             android:textStyle="bold"

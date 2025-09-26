@@ -9,8 +9,10 @@
     <color name="cyan">#7AFFE2</color>
     <color name="coral_pink">#F88379</color>
 
-    <color name="theme">#20B2AA</color>
-<!--    <color name="theme">#FF9999</color>-->
+    <!--    <color name="theme">#20B2AA</color>-->
+    <!--    <color name="theme">#FF9999</color>-->
+
+    <color name="theme">#00BFFF</color>
 
     <!--    <color name="background">#F5F5F5</color>-->
 

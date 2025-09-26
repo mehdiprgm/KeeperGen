@@ -19,8 +19,8 @@ import androidx.core.view.WindowInsetsCompat
 import org.zendev.keepergen.R
 import org.zendev.keepergen.activity.MainActivity
 import org.zendev.keepergen.databinding.ActivityPasscodeLoginBinding
+import org.zendev.keepergen.dialog.DialogType
 import org.zendev.keepergen.dialog.Dialogs
-import org.zendev.keepergen.dialog.Dialogs.Companion.confirm
 import org.zendev.keepergen.tools.getAllViews
 import org.zendev.keepergen.tools.isDeviceSecure
 import org.zendev.keepergen.tools.lockActivityOrientation
@@ -103,9 +103,9 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
                 } else {
                     Dialogs.confirm(
                         this,
-                        R.drawable.ic_microchip,
-                        "Biometric is unavailable",
-                        "This device doesn't have lock screen or registered fingerprint.\nChange it from device settings and try again."
+                        title = "Biometric is unavailable",
+                        message = "This device doesn't have lock screen or registered fingerprint.\nChange it from device settings and try again.",
+                        dialogType = DialogType.Error
                     )
                 }
             }
@@ -219,7 +219,7 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
 
     private fun startKeyPadAnimation() {
         var animationDuration = 500L
-        val views = getAllViews(b.layPasscode,false)
+        val views = getAllViews(b.layPasscode, false)
 
         views.forEachIndexed { _, v ->
             animationDuration += 50

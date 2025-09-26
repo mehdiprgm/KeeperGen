@@ -146,7 +146,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/button_radius"
+                    android:background="@drawable/button_background"
                     android:text="Login"
                     android:textAllCaps="false"
                     android:textColor="@color/black"

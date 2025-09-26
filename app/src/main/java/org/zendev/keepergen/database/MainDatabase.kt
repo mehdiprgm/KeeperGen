@@ -13,7 +13,7 @@ import org.zendev.keepergen.database.entity.BankCard
 import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.database.entity.Note
 
-@Database(entities = [Account::class, BankCard::class, Contact::class, Note::class], version = 6, exportSchema = false)
+@Database(entities = [Account::class, BankCard::class, Contact::class, Note::class], version = 7, exportSchema = false)
 abstract class MainDatabase : RoomDatabase() {
     abstract fun accountDAO(): AccountDAO
     abstract fun bankCardDAO(): BankCardDAO

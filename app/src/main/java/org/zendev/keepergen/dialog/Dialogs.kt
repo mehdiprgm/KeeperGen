@@ -1,15 +1,11 @@
 package org.zendev.keepergen.dialog
 
+import android.animation.LayoutTransition
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
-import android.text.InputType.TYPE_CLASS_NUMBER
-import android.text.InputType.TYPE_CLASS_TEXT
-import android.text.InputType.TYPE_NUMBER_VARIATION_PASSWORD
-import android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -17,7 +13,6 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.SeekBar
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.appcompat.content.res.AppCompatResources
@@ -28,8 +23,9 @@ import org.zendev.keepergen.R
 import org.zendev.keepergen.tools.preferencesName
 import kotlin.coroutines.resume
 import androidx.core.content.edit
-import androidx.core.net.toUri
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.materialswitch.MaterialSwitch
+import com.google.android.material.switchmaterial.SwitchMaterial
 import org.zendev.keepergen.database.entity.Account
 import org.zendev.keepergen.database.entity.BankCard
 import org.zendev.keepergen.database.entity.Contact
@@ -38,9 +34,9 @@ import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.generatePassword
 import org.zendev.keepergen.tools.getDate
 import org.zendev.keepergen.tools.getPasswordStrength
+import org.zendev.keepergen.tools.resizeTextViewDrawable
 import org.zendev.keepergen.tools.setEditTextLimiter
 import org.zendev.keepergen.tools.startDialogAnimation
-import org.zendev.keepergen.tools.validateEditTextData
 
 class Dialogs {
 
@@ -71,25 +67,25 @@ class Dialogs {
 
             var score = 4
 
-            score += validateEditTextData(
-                txtName, txtName.text.toString().isEmpty(), "Name is empty"
-            )
-
-            score += validateEditTextData(
-                txtUsername, txtUsername.text.toString().isEmpty(), "Username is empty"
-            )
-
-            score += validateEditTextData(
-                txtPassword, txtPassword.text.toString().isEmpty(), "Password is empty"
-            )
-
-            score += validateEditTextData(
-                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
-            )
-
-            score += validateEditTextData(
-                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
-            )
+//            score += validateEditTextData(
+//                txtName, txtName.text.toString().isEmpty(), "Name is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtUsername, txtUsername.text.toString().isEmpty(), "Username is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPassword, txtPassword.text.toString().isEmpty(), "Password is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
+//            )
 
             return score == 4
         }
@@ -104,47 +100,47 @@ class Dialogs {
 
             var score = 6
 
-            score += validateEditTextData(
-                txtCardName, txtCardName.text.toString().isEmpty(), "Card name is empty"
-            )
-
-            score += validateEditTextData(
-                txtCardNumber, txtCardNumber.text.toString().isEmpty(), "Card number is empty"
-            )
-
-            score += validateEditTextData(
-                txtCardNumber,
-                txtCardNumber.text.toString().replace(" ", "").length != 16,
-                "Card number is invalid"
-            )
-
-            score += validateEditTextData(
-                txtCvv2, txtCvv2.text.isEmpty(), "Cvv2 is empty"
-            )
-
-            score += validateEditTextData(
-                txtCvv2, txtCvv2.text.length != 4, "Cvv2 is invalid"
-            )
-
-            score += validateEditTextData(
-                txtMonth, txtMonth.text.isEmpty(), "Month is empty"
-            )
-
-            score += validateEditTextData(
-                txtMonth, txtMonth.text.length != 2, "Month is invalid"
-            )
-
-            score += validateEditTextData(
-                txtYear, txtYear.text.isEmpty(), "Year is empty"
-            )
-
-            score += validateEditTextData(
-                txtYear, txtYear.text.length != 2, "Year is invalid"
-            )
-
-            score += validateEditTextData(
-                txtPassword, txtPassword.text.isEmpty(), "Password is empty"
-            )
+//            score += validateEditTextData(
+//                txtCardName, txtCardName.text.toString().isEmpty(), "Card name is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtCardNumber, txtCardNumber.text.toString().isEmpty(), "Card number is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtCardNumber,
+//                txtCardNumber.text.toString().replace(" ", "").length != 16,
+//                "Card number is invalid"
+//            )
+//
+//            score += validateEditTextData(
+//                txtCvv2, txtCvv2.text.isEmpty(), "Cvv2 is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtCvv2, txtCvv2.text.length != 4, "Cvv2 is invalid"
+//            )
+//
+//            score += validateEditTextData(
+//                txtMonth, txtMonth.text.isEmpty(), "Month is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtMonth, txtMonth.text.length != 2, "Month is invalid"
+//            )
+//
+//            score += validateEditTextData(
+//                txtYear, txtYear.text.isEmpty(), "Year is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtYear, txtYear.text.length != 2, "Year is invalid"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPassword, txtPassword.text.isEmpty(), "Password is empty"
+//            )
 
             return score == 6
         }
@@ -155,17 +151,17 @@ class Dialogs {
 
             var score = 2
 
-            score += validateEditTextData(
-                txtName, txtName.text.toString().isEmpty(), "Name is empty"
-            )
-
-            score += validateEditTextData(
-                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
-            )
-
-            score += validateEditTextData(
-                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
-            )
+//            score += validateEditTextData(
+//                txtName, txtName.text.toString().isEmpty(), "Name is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
+//            )
+//
+//            score += validateEditTextData(
+//                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
+//            )
 
             return score == 2
         }
@@ -207,9 +203,16 @@ class Dialogs {
                 dialog.show()
             }
 
-        suspend fun ask(context: Context, icon: Int, title: String, message: String): Boolean =
+        suspend fun ask(
+            context: Context,
+            icon: Int,
+            title: String,
+            message: String,
+            cancellable: Boolean = false
+        ): Boolean =
             suspendCancellableCoroutine { continuation ->
                 val dialog = createDialog(context, R.layout.dialog_ask)
+                dialog.setCancelable(cancellable)
                 startDialogAnimation(dialog.findViewById(R.id.main))
 
                 val tvTitle = dialog.findViewById<TextView>(R.id.tvTitle)
@@ -242,11 +245,13 @@ class Dialogs {
                 }
             }
 
-        suspend fun account(context: Context, account: Account? = null): Account? =
+        suspend fun account(context: Context, account: Account? = null): Account =
             suspendCancellableCoroutine { continuation ->
                 val dialog = createDialog(context, R.layout.dialog_account)
                 dialog.setCancelable(true)
                 startDialogAnimation(dialog.findViewById(R.id.main))
+
+                var accountType = "Social media"
 
                 val txtName = dialog.findViewById<EditText>(R.id.txtName)
                 val txtUsername = dialog.findViewById<EditText>(R.id.txtUsername)
@@ -254,20 +259,18 @@ class Dialogs {
                 val txtPhoneNumber = dialog.findViewById<EditText>(R.id.txtPhoneNumber)
                 val txtComment = dialog.findViewById<EditText>(R.id.txtComment)
 
-                val spinnerAccountType = dialog.findViewById<Spinner>(R.id.spinnerAccountType)
                 val tvPhoneNumberLimiter = dialog.findViewById<TextView>(R.id.tvPhoneNumberLimiter)
 
                 val btnApply = dialog.findViewById<Button>(R.id.btnApply)
+                val btnSocialMedia = dialog.findViewById<RadioButton>(R.id.btnSocialMedia)
+                val btnWebsite = dialog.findViewById<RadioButton>(R.id.btnWebsite)
+                val btnEmailAddress = dialog.findViewById<RadioButton>(R.id.btnEmailAddress)
+                val btnOthers = dialog.findViewById<RadioButton>(R.id.btnOthers)
 
-                /* Setup Spinner */
-                val adapter = ArrayAdapter(
-                    context, R.layout.spinner_account_type, arrayOf(
-                        "Social media", "Website", "Email address", "Others"
-                    )
-                )
+                val layAccountType = dialog.findViewById<ConstraintLayout>(R.id.layAccountType)
 
-                adapter.setDropDownViewResource(R.layout.spinner_account_type)
-                spinnerAccountType.adapter = adapter/* Setup Spinner */
+                /* Setup layout transition */
+                layAccountType.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
                 setEditTextLimiter(txtPhoneNumber, tvPhoneNumberLimiter, 11, true)
 
@@ -276,10 +279,28 @@ class Dialogs {
                     btnApply.text = "Create account"
                 } else {
                     txtName.setText(account.name)
-                    txtUsername.setText(account.name)
-                    txtPassword.setText(account.name)
-                    txtPhoneNumber.setText(account.name)
-                    txtComment.setText(account.name)
+                    txtUsername.setText(account.username)
+                    txtPassword.setText(account.password)
+                    txtPhoneNumber.setText(account.phoneNumber)
+                    txtComment.setText(account.comment)
+
+                    when (account.accountType) {
+                        "Social media" -> {
+                            btnSocialMedia.isChecked = true
+                        }
+
+                        "Website" -> {
+                            btnWebsite.isChecked = true
+                        }
+
+                        "Email address" -> {
+                            btnEmailAddress.isChecked = true
+                        }
+
+                        "Others" -> {
+                            btnOthers.isChecked = true
+                        }
+                    }
                 }
 
                 btnApply.setOnClickListener {
@@ -290,7 +311,7 @@ class Dialogs {
                                 phoneNumber = txtPhoneNumber.text.toString(),
                                 username = txtUsername.text.toString(),
                                 password = txtPassword.text.toString(),
-                                accountType = spinnerAccountType.selectedItemPosition,
+                                accountType = accountType,
                                 comment = txtComment.text.toString()
                             )
 
@@ -301,13 +322,29 @@ class Dialogs {
                             account.phoneNumber = txtPhoneNumber.text.toString()
                             account.username = txtUsername.text.toString()
                             account.password = txtPassword.text.toString()
-                            account.accountType = spinnerAccountType.selectedItemPosition
+                            account.accountType = accountType
                             account.comment = txtComment.text.toString()
 
                             continuation.resume(account)
                             dialog.dismiss()
                         }
                     }
+                }
+
+                btnSocialMedia.setOnClickListener {
+                    accountType = "Social media"
+                }
+
+                btnWebsite.setOnClickListener {
+                    accountType = "Website"
+                }
+
+                btnEmailAddress.setOnClickListener {
+                    accountType = "Email address"
+                }
+
+                btnOthers.setOnClickListener {
+                    accountType = "Others"
                 }
 
                 dialog.show()
@@ -476,37 +513,40 @@ class Dialogs {
             hint: String,
             defaultText: String = "",
             isPassword: Boolean = false,
-            isNumber: Boolean
+            isNumber: Boolean = false,
+            cancellable: Boolean = false
         ): String = suspendCancellableCoroutine { continuation ->
             val dialog = createDialog(context, R.layout.dialog_text_input)
+            dialog.setCancelable(cancellable)
             startDialogAnimation(dialog.findViewById(R.id.main))
 
-            val editText = dialog.findViewById<EditText>(R.id.txtInput)
+            val txtInput = dialog.findViewById<EditText>(R.id.txtInput)
 
             dialog.findViewById<TextView>(R.id.tvTitle).text = title
             dialog.findViewById<TextView>(R.id.tvMessage).text = message
 
-            editText.hint = hint
-            editText.setText(defaultText)
+            txtInput.hint = hint
+            txtInput.setText(defaultText)
 
             if (isPassword) {
                 if (isNumber) {
-                    editText.inputType = TYPE_CLASS_NUMBER or TYPE_NUMBER_VARIATION_PASSWORD
+                    txtInput.inputType =
+                        InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
                 } else {
-                    editText.inputType = TYPE_CLASS_TEXT or TYPE_TEXT_VARIATION_PASSWORD
+                    txtInput.inputType =
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                 }
-
-                editText.transformationMethod = PasswordTransformationMethod.getInstance()
+                txtInput.transformationMethod = PasswordTransformationMethod.getInstance()
             } else {
                 if (isNumber) {
-                    editText.inputType = TYPE_CLASS_NUMBER
+                    txtInput.inputType = InputType.TYPE_CLASS_NUMBER
                 } else {
-                    editText.inputType = TYPE_CLASS_TEXT
+                    txtInput.inputType = InputType.TYPE_CLASS_TEXT
                 }
             }
 
             dialog.findViewById<Button>(R.id.btnOk).setOnClickListener {
-                val text = editText.text.toString()
+                val text = txtInput.text.toString()
                 continuation.resume(text)
                 dialog.dismiss()
             }
@@ -527,101 +567,6 @@ class Dialogs {
             dialog.show()
         }
 
-        suspend fun theme(context: Context, defaultValue: Int): Int =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_theme)
-                dialog.setCancelable(true)
-
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                val btnLight = dialog.findViewById<RadioButton>(R.id.btnLight)
-                val btnDark = dialog.findViewById<RadioButton>(R.id.btnDark)
-                val btnSystem = dialog.findViewById<RadioButton>(R.id.btnSystem)
-
-                when (defaultValue) {
-                    0 -> {
-                        btnLight.isChecked = true
-                    }
-
-                    1 -> {
-                        btnDark.isChecked = true
-                    }
-
-                    2 -> {
-                        btnSystem.isChecked = true
-                    }
-                }
-
-                btnLight.setOnClickListener {
-                    continuation.resume(0)
-                    dialog.dismiss()
-                }
-
-                btnDark.setOnClickListener {
-                    continuation.resume(1)
-                    dialog.dismiss()
-                }
-
-                btnSystem.setOnClickListener {
-                    continuation.resume(2)
-                    dialog.dismiss()
-                }
-
-                dialog.show()
-            }
-
-        suspend fun lockTimeout(context: Context, defaultValue: Int): Int =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_lock_timeout)
-                dialog.setCancelable(true)
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                val btn5Second = dialog.findViewById<RadioButton>(R.id.btn5Second)
-                val btn10Second = dialog.findViewById<RadioButton>(R.id.btn10Second)
-                val btn15Second = dialog.findViewById<RadioButton>(R.id.btn15Second)
-                val btn30Second = dialog.findViewById<RadioButton>(R.id.btn30Second)
-
-                btn5Second.setOnClickListener {
-                    continuation.resume(5)
-                    dialog.dismiss()
-                }
-
-                btn10Second.setOnClickListener {
-                    continuation.resume(10)
-                    dialog.dismiss()
-                }
-
-                btn15Second.setOnClickListener {
-                    continuation.resume(15)
-                    dialog.dismiss()
-                }
-
-                btn30Second.setOnClickListener {
-                    continuation.resume(30)
-                    dialog.dismiss()
-                }
-
-                when (defaultValue) {
-                    5 -> {
-                        btn5Second.isChecked = true
-                    }
-
-                    10 -> {
-                        btn10Second.isChecked = true
-                    }
-
-                    15 -> {
-                        btn15Second.isChecked = true
-                    }
-
-                    30 -> {
-                        btn30Second.isChecked = true
-                    }
-                }
-
-                dialog.show()
-            }
-
         fun newPassword(context: Context) {
             val dialog = createDialog(context, R.layout.dialog_new_password)
             dialog.setCancelable(true)
@@ -636,9 +581,9 @@ class Dialogs {
             val seekLength = dialog.findViewById<SeekBar>(R.id.seekLength)
             val rbPasswordStrength = dialog.findViewById<RatingBar>(R.id.rbPasswordStrength)
 
-            val chkNumbers = dialog.findViewById<CheckBox>(R.id.chkNumbers)
-            val chkSymbols = dialog.findViewById<CheckBox>(R.id.chkSymbols)
-            val chkLowerCase = dialog.findViewById<CheckBox>(R.id.chkLowerCase)
+            val chkNumbers = dialog.findViewById<SwitchMaterial>(R.id.switchNumbers)
+            val chkSymbols = dialog.findViewById<SwitchMaterial>(R.id.switchSymbols)
+            val chkLowerCase = dialog.findViewById<SwitchMaterial>(R.id.switchLowerCase)
 
             btnGeneratePassword.setOnClickListener {
                 val password = generatePassword(
@@ -659,7 +604,6 @@ class Dialogs {
             }
 
             seekLength.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-
                 // This method is called when the progress value of the SeekBar changes.
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
@@ -694,7 +638,7 @@ class Dialogs {
             return dialog
         }
 
-        fun confirm(context: Context, icon: Int, title: String, message: String) {
+        fun confirm(context: Context, title: String, message: String, dialogType: DialogType) {
             val dialog = createDialog(context, R.layout.dialog_confirm)
             startDialogAnimation(dialog.findViewById(R.id.main))
 
@@ -704,9 +648,19 @@ class Dialogs {
             tvTitle.text = title
             tvMessage.text = message
 
-            dialog.findViewById<ImageView>(R.id.imgLogo).setImageDrawable(
-                ContextCompat.getDrawable(context, icon)
-            )
+            when (dialogType) {
+                DialogType.Error -> {
+                    resizeTextViewDrawable(context, tvTitle, R.drawable.ic_error, 22)
+                }
+
+                DialogType.Warning -> {
+                    resizeTextViewDrawable(context, tvTitle, R.drawable.ic_warning, 22)
+                }
+
+                DialogType.Information -> {
+                    resizeTextViewDrawable(context, tvTitle, R.drawable.ic_info, 22)
+                }
+            }
 
             dialog.findViewById<Button>(R.id.btnOk).setOnClickListener {
                 dialog.dismiss()
@@ -717,7 +671,7 @@ class Dialogs {
 
         fun exception(context: Context, exception: Exception) {
             val message = "${exception.message}}"
-            confirm(context, R.drawable.ic_error, "Error", message)
+            confirm(context, title = "Error", message = message, DialogType.Error)
         }
     }
 }
