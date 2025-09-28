@@ -1,23 +1,24 @@
-package org.zendev.keepergen.dialog
+package org.zendev.keepergen.dialog.bottom.details
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
+import org.zendev.keepergen.activity.database.update.UpdateAccountActivity
 import org.zendev.keepergen.database.entity.Account
 import org.zendev.keepergen.databinding.BsdAccountDetailsBinding
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.copyTextToClipboard
-import org.zendev.keepergen.tools.selectedItems
 import org.zendev.keepergen.tools.shareText
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
@@ -57,12 +58,11 @@ class BottomDialogAccountDetails(private val context: Context, private var accou
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.layEdit -> {
-                lifecycleScope.launch {
-                    account = Dialogs.account(context, account)
+                val intent = Intent(context, UpdateAccountActivity::class.java)
+                intent.putExtra("Account", account)
 
-                    databaseViewModel.updateAccount(account)
-                    loadAccountInformation()
-                }
+                startActivity(intent)
+                dismiss()
             }
 
             R.id.layCopy -> {

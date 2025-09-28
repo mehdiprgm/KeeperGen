@@ -1,4 +1,4 @@
-package org.zendev.keepergen.dialog
+package org.zendev.keepergen.dialog.bottom
 
 import android.app.Dialog
 import android.content.Context
@@ -13,11 +13,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
-import org.zendev.keepergen.activity.database.NewAccountActivity
-import org.zendev.keepergen.activity.database.NewBankCardActivity
-import org.zendev.keepergen.activity.database.NewContactActivity
-import org.zendev.keepergen.activity.database.NewNoteActivity
+import org.zendev.keepergen.activity.database.create.NewAccountActivity
+import org.zendev.keepergen.activity.database.create.NewBankCardActivity
+import org.zendev.keepergen.activity.database.create.NewContactActivity
+import org.zendev.keepergen.activity.database.create.NewNoteActivity
 import org.zendev.keepergen.databinding.BsdNewItemBinding
+import org.zendev.keepergen.dialog.DialogType
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
 class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragment(),
@@ -56,7 +58,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
         when (view?.id) {
             R.id.layAccount -> {
                 lifecycleScope.launch {
-                    val accountName = Dialogs.textInput(
+                    val accountName = Dialogs.Companion.textInput(
                         context,
                         title = "Account name",
                         message = "Please enter your account name",
@@ -76,7 +78,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
                             startActivity(intent)
                             dismiss()
                         } else {
-                            Dialogs.confirm(
+                            Dialogs.Companion.confirm(
                                 context,
                                 title = "Account exists",
                                 message = "Select other name for this account",
@@ -89,7 +91,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
 
             R.id.layBankCard -> {
                 lifecycleScope.launch {
-                    val bankCardName = Dialogs.textInput(
+                    val bankCardName = Dialogs.Companion.textInput(
                         context,
                         title = "Card name",
                         message = "Please enter your card name",
@@ -109,7 +111,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
                             startActivity(intent)
                             dismiss()
                         } else {
-                            Dialogs.confirm(
+                            Dialogs.Companion.confirm(
                                 context,
                                 title = "Bank Card exists",
                                 message = "Select other name for this card",
@@ -122,7 +124,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
 
             R.id.layContact -> {
                 lifecycleScope.launch {
-                    val contactName = Dialogs.textInput(
+                    val contactName = Dialogs.Companion.textInput(
                         context,
                         title = "Name",
                         message = "Please enter your contact name",
@@ -142,7 +144,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
                             startActivity(intent)
                             dismiss()
                         } else {
-                            Dialogs.confirm(
+                            Dialogs.Companion.confirm(
                                 context,
                                 title = "Contact exists",
                                 message = "Select other name for this contact",
@@ -155,7 +157,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
 
             R.id.layNote -> {
                 lifecycleScope.launch {
-                    val noteName = Dialogs.textInput(
+                    val noteName = Dialogs.Companion.textInput(
                         context,
                         title = "Name",
                         message = "Please enter your note name",
@@ -175,7 +177,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
                             startActivity(intent)
                             dismiss()
                         } else {
-                            Dialogs.confirm(
+                            Dialogs.Companion.confirm(
                                 context,
                                 title = "Note exists",
                                 message = "Select other name for this note",
@@ -187,7 +189,7 @@ class BottomDialogNewItem(private val context: Context) : BottomSheetDialogFragm
             }
 
             R.id.layPassword -> {
-                Dialogs.newPassword(context)
+                Dialogs.Companion.newPassword(context)
                 dismiss()
             }
         }

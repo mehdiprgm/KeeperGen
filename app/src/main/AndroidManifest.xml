@@ -23,16 +23,31 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.database.NewNoteActivity"
+            android:name=".activity.database.update.UpdateNoteActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.database.NewContactActivity"
+            android:name=".activity.database.update.UpdateContactActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.database.NewBankCardActivity"
+            android:name=".activity.database.update.UpdateBankCardActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.database.NewAccountActivity"
+            android:name=".activity.database.update.UpdateAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PasswordGenerateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.database.create.NewNoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.database.create.NewContactActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.database.create.NewBankCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.database.create.NewAccountActivity"
             android:exported="false" />
         <activity
             android:name=".activity.database.AccountActivity"

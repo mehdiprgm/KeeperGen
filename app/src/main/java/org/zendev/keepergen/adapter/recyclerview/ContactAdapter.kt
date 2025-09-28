@@ -3,7 +3,6 @@ package org.zendev.keepergen.adapter.recyclerview
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
@@ -66,15 +65,13 @@ class ContactAdapter(private val context: Context) :
 
         b.tvContactName.text = contact.name.replaceFirstChar { it.uppercase() }
         b.tvPhoneNumber.text = contact.phoneNumber
+        b.tvComment.text = contact.comment
+
+        b.tvCommentTitle.isVisible = contact.comment.isNotEmpty()
+        b.tvComment.isVisible = contact.comment.isNotEmpty()
 
         b.chkSelected.isVisible = showCheckBoxes
         b.chkSelected.isChecked = selectedItems.contains(contact)
-
-        if (contact.comment.isEmpty()) {
-            b.tvComment.text = "No comment"
-        } else {
-            b.tvComment.text = contact.comment
-        }
 
         b.layContact.setOnClickListener {
             itemClickListener?.onItemClick(b.chkSelected, contact)

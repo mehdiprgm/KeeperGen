@@ -28,34 +28,17 @@ class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
         disableScreenPadding(b.root)
 
         rotateApplicationLogo()
-        enableLayoutTransitions()
 
         b.imgGmail.setOnClickListener(this)
         b.imgTelegram.setOnClickListener(this)
         b.imgInstagram.setOnClickListener(this)
         b.imgGithub.setOnClickListener(this)
 
-        b.layAppInformation.setOnClickListener(this)
-        b.layFeatures.setOnClickListener(this)
-        b.layFixedBugs.setOnClickListener(this)
-
         b.tvTitle.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.layAppInformation -> {
-                setAppInformationCardViewVisibility(!b.viewSep1.isVisible)
-            }
-
-            R.id.layFeatures -> {
-                setFeaturesCardViewVisibility(!b.tvFeature1.isVisible)
-            }
-
-            R.id.layFixedBugs -> {
-                setFixedBugsCardViewVisibility(!b.tvFixedBug1.isVisible)
-            }
-
             R.id.tvTitle -> {
                 finish()
             }
@@ -120,50 +103,5 @@ class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
         animator.interpolator = LinearInterpolator()
 
         animator.start()
-    }
-
-    private fun enableLayoutTransitions() {
-        b.layAppInformation.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        b.layFeatures.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-        b.layFixedBugs.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-    }
-
-    private fun setAppInformationCardViewVisibility(visible: Boolean) {
-        var animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
-        if (!visible) {
-            animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180)
-        }
-
-        b.imgClose1.animation = animation
-
-        b.viewSep1.isVisible = visible
-        b.tvAppDescription.isVisible = visible
-    }
-
-    private fun setFeaturesCardViewVisibility(visible: Boolean) {
-        var animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
-        if (!visible) {
-            animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180)
-        }
-
-        b.imgClose2.animation = animation
-
-        b.tvFeature1.isVisible = visible
-        b.tvFeature2.isVisible = visible
-        b.tvFeature3.isVisible = visible
-        b.tvFeature4.isVisible = visible
-        b.tvFeature5.isVisible = visible
-    }
-
-    private fun setFixedBugsCardViewVisibility(visible: Boolean) {
-        var animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180_reverse)
-        if (!visible) {
-            animation = AnimationUtils.loadAnimation(this, R.anim.rotate_180)
-        }
-
-        b.imgClose3.animation = animation
-
-        b.tvFixedBug1.isVisible = visible
-        b.tvFixedBug2.isVisible = visible
     }
 }

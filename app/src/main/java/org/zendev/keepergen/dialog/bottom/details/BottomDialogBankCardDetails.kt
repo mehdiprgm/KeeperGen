@@ -1,7 +1,8 @@
-package org.zendev.keepergen.dialog
+package org.zendev.keepergen.dialog.bottom.details
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
-import org.zendev.keepergen.database.entity.Account
+import org.zendev.keepergen.activity.database.update.UpdateAccountActivity
+import org.zendev.keepergen.activity.database.update.UpdateBankCardActivity
 import org.zendev.keepergen.database.entity.BankCard
-import org.zendev.keepergen.databinding.BsdAccountDetailsBinding
 import org.zendev.keepergen.databinding.BsdBankcardDetailsBinding
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.shareText
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
@@ -49,12 +51,21 @@ class BottomDialogBankCardDetails(private val context: Context, private val bank
         loadBankCardInformation()
 
         b.layCopy.setOnClickListener(this)
+        b.layEdit.setOnClickListener(this)
         b.layShare.setOnClickListener(this)
         b.layDelete.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
+            R.id.layEdit -> {
+                val intent = Intent(context, UpdateBankCardActivity::class.java)
+                intent.putExtra("BankCard", bankCard)
+
+                startActivity(intent)
+                dismiss()
+            }
+
             R.id.layCopy -> {
                 copyTextToClipboard(context, "Bank Card details", bankCard.toString())
             }
@@ -65,7 +76,7 @@ class BottomDialogBankCardDetails(private val context: Context, private val bank
 
             R.id.layDelete -> {
                 lifecycleScope.launch {
-                    if (Dialogs.ask(
+                    if (Dialogs.Companion.ask(
                             context,
                             icon = R.drawable.ic_warning,
                             "Delete bank card",

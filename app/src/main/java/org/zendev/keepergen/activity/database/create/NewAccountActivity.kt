@@ -1,25 +1,38 @@
-package org.zendev.keepergen.activity.database
+package org.zendev.keepergen.activity.database.create
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
 import org.zendev.keepergen.database.entity.Account
 import org.zendev.keepergen.databinding.ActivityNewAccountBinding
+import org.zendev.keepergen.dialog.Dialogs
+import org.zendev.keepergen.tools.disableActivityScreenShot
 import org.zendev.keepergen.tools.disableScreenPadding
+import org.zendev.keepergen.tools.getAllViews
+import org.zendev.keepergen.tools.preferencesName
 import org.zendev.keepergen.tools.validateEditTextData
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
 class NewAccountActivity : AppCompatActivity(), View.OnClickListener {
-
     private lateinit var b: ActivityNewAccountBinding
     private lateinit var databaseViewModel: DatabaseViewModel
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
+    private lateinit var pref: SharedPreferences
 
     private lateinit var accountName: String
     private lateinit var accountType: String
@@ -32,11 +45,13 @@ class NewAccountActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(b.root)
         disableScreenPadding(b.root)
 
-        loadAccountName()
-
-        setupFormValidator()
+        setOnBackPressedListener()
         setupViewModel()
+        setupFormValidator()
         setupAutoCompleteDropDownMenu()
+
+        loadAccountName()
+        loadPreferences()
 
         b.btnFinish.setOnClickListener(this)
     }
@@ -70,45 +85,10 @@ class NewAccountActivity : AppCompatActivity(), View.OnClickListener {
         val adapter = ArrayAdapter(this, R.layout.drop_down_account_type_layout, items)
 
         b.actvAccountType.setAdapter(adapter)
-        b.actvAccountType.onItemClickListener = AdapterView.OnItemClickListener {
-            adapterView, view, i, l ->
-
-            accountType = adapterView.getItemAtPosition(i).toString()
-        }
-    }
-
-    private fun isFormValid(): Boolean {
-        var score = 3
-
-        score += validateEditTextData(
-            b.txtLayUsername,
-            b.txtUsername.text.toString().isEmpty(),
-            "Username is empty."
-        )
-
-        score += validateEditTextData(
-            b.txtLayPassword,
-            b.txtPassword.text.toString().isEmpty(),
-            "Password is empty."
-        )
-
-        score += validateEditTextData(
-            b.txtLayPhoneNumber,
-            b.txtPhoneNumber.text.toString().isEmpty(),
-            "Phone number is empty."
-        )
-
-        score += validateEditTextData(
-            b.txtLayPhoneNumber,
-            b.txtPhoneNumber.text.toString().length != 11,
-            "Phone number is not correct."
-        )
-
-        return score == 3
-    }
-
-    private fun loadAccountName() {
-        accountName = intent.getStringExtra("Name")!!
+        b.actvAccountType.onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, i, l ->
+                accountType = adapterView.getItemAtPosition(i).toString()
+            }
     }
 
     private fun setupFormValidator() {
@@ -168,4 +148,91 @@ class NewAccountActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
     }
+
+    private fun setOnBackPressedListener() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (pref.getBoolean("ConfirmChanges", false)) {
+                    var editTextsEmpty = true
+                    val views = getAllViews(b.layNewAccount, false)
+
+                    for (view in views) {
+                        if (view is TextInputEditText) {
+                            if (view.text.toString().isNotEmpty()) {
+                                editTextsEmpty = false
+                                break
+                            }
+                        }
+                    }
+
+                    /* if no text exists in the entire form */
+                    if (editTextsEmpty) {
+                        finish()
+                    } else {
+                        lifecycleScope.launch {
+                            if (Dialogs.ask(
+                                    this@NewAccountActivity,
+                                    R.drawable.ic_warning,
+                                    "Discard changes",
+                                    "Are you sure you want to exit?\nAll the information in this form will be list",
+                                    false
+                                )
+                            ) {
+                                finish()
+                            }
+                        }
+                    }
+                } else {
+                    finish()
+                }
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
+    }
+
+    private fun isFormValid(): Boolean {
+        var score = 3
+
+        score += validateEditTextData(
+            b.txtLayUsername,
+            b.txtUsername.text.toString().isEmpty(),
+            "Username is empty."
+        )
+
+        score += validateEditTextData(
+            b.txtLayPassword,
+            b.txtPassword.text.toString().isEmpty(),
+            "Password is empty."
+        )
+
+        score += validateEditTextData(
+            b.txtLayPhoneNumber,
+            b.txtPhoneNumber.text.toString().isEmpty(),
+            "Phone number is empty."
+        )
+
+        score += validateEditTextData(
+            b.txtLayPhoneNumber,
+            b.txtPhoneNumber.text.toString().length != 11,
+            "Phone number is not correct."
+        )
+
+        return score == 3
+    }
+
+    private fun loadAccountName() {
+        accountName = intent.getStringExtra("Name")!!
+    }
+
+    private fun loadPreferences() {
+        pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
+
+        if (!pref.getBoolean("Screenshot", false)) {
+            disableActivityScreenShot(this)
+        }
+    }
+
 }

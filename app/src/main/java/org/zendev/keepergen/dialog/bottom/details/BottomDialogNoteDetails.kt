@@ -1,7 +1,8 @@
-package org.zendev.keepergen.dialog
+package org.zendev.keepergen.dialog.bottom.details
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,18 +14,19 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
-import org.zendev.keepergen.database.entity.BankCard
-import org.zendev.keepergen.database.entity.Contact
-import org.zendev.keepergen.databinding.BsdBankcardDetailsBinding
-import org.zendev.keepergen.databinding.BsdContactDetailsBinding
+import org.zendev.keepergen.activity.database.update.UpdateContactActivity
+import org.zendev.keepergen.activity.database.update.UpdateNoteActivity
+import org.zendev.keepergen.database.entity.Note
+import org.zendev.keepergen.databinding.BsdNoteDetailsBinding
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.shareText
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
-class BottomDialogContactDetails(private val context: Context, private val contact: Contact) :
+class BottomDialogNoteDetails(private val context: Context, private val note: Note) :
     BottomSheetDialogFragment(), OnClickListener {
 
-    private lateinit var b: BsdContactDetailsBinding
+    private lateinit var b: BsdNoteDetailsBinding
     private lateinit var databaseViewModel: DatabaseViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -37,7 +39,7 @@ class BottomDialogContactDetails(private val context: Context, private val conta
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        b = BsdContactDetailsBinding.inflate(layoutInflater)
+        b = BsdNoteDetailsBinding.inflate(layoutInflater)
         return b.root
     }
 
@@ -46,33 +48,42 @@ class BottomDialogContactDetails(private val context: Context, private val conta
         isCancelable = true
 
         setupViewModel()
-        loadContactsInformation()
+        loadNoteInformation()
 
         b.layCopy.setOnClickListener(this)
+        b.layEdit.setOnClickListener(this)
         b.layShare.setOnClickListener(this)
         b.layDelete.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
+            R.id.layEdit -> {
+                val intent = Intent(context, UpdateNoteActivity::class.java)
+                intent.putExtra("Note", note)
+
+                startActivity(intent)
+                dismiss()
+            }
+
             R.id.layCopy -> {
-                copyTextToClipboard(context, "Contact details", contact.toString())
+                copyTextToClipboard(context, "Note details", note.toString())
             }
 
             R.id.layShare -> {
-                shareText(context, "Contact details", contact.toString())
+                shareText(context, "Note details", note.toString())
             }
 
             R.id.layDelete -> {
                 lifecycleScope.launch {
-                    if (Dialogs.ask(
+                    if (Dialogs.Companion.ask(
                             context,
                             icon = R.drawable.ic_warning,
-                            "Delete contact",
-                            "Are you sure you want to delete this contact?"
+                            "Delete note",
+                            "Are you sure you want to delete this note?"
                         )
                     ) {
-                        databaseViewModel.deleteContact(contact)
+                        databaseViewModel.deleteNote(note)
                         dismiss()
                     }
                 }
@@ -84,9 +95,9 @@ class BottomDialogContactDetails(private val context: Context, private val conta
         databaseViewModel = ViewModelProvider(this)[DatabaseViewModel::class.java]
     }
 
-    private fun loadContactsInformation() {
-        b.tvName.text = contact.name
-        b.tvPhoneNumber.text = contact.phoneNumber
-        b.tvComment.text = contact.comment
+    private fun loadNoteInformation() {
+        b.tvName.text = note.name
+        b.tvContent.text = note.content
+        b.tvModifyDate.text = note.modifyDate
     }
 }

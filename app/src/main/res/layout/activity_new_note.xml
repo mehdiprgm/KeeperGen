@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    tools:context=".activity.database.NewNoteActivity">
+    tools:context=".activity.database.create.NewNoteActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -86,7 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button_background"
                 android:text="Finish"
                 android:textColor="@color/black"
                 android:textStyle="bold"

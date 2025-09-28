@@ -1,4 +1,4 @@
-package org.zendev.keepergen.dialog
+package org.zendev.keepergen.dialog.bottom
 
 import android.Manifest
 import android.app.Dialog
@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
 import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.databinding.BsdImportContactsBinding
+import org.zendev.keepergen.dialog.DialogType
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
 class BottomDialogImportContacts(private val context: Context) : BottomSheetDialogFragment(),
@@ -97,7 +99,7 @@ class BottomDialogImportContacts(private val context: Context) : BottomSheetDial
             if (permissionDenied.isEmpty()) {
                 importContacts()
             } else {
-                Dialogs.confirm(
+                Dialogs.Companion.confirm(
                     context,
                     title = "Permission denied",
                     message = "The application needs your permission to access device contacts and it seems you denied it.",
@@ -130,7 +132,7 @@ class BottomDialogImportContacts(private val context: Context) : BottomSheetDial
                 val number = it.getString(numberIndex)
 
                 contactsList.add(
-                    Contact(name = name, phoneNumber = number, comment = "No comment")
+                    Contact(name = name, phoneNumber = number, comment = "")
                 )
             }
         }
@@ -140,7 +142,7 @@ class BottomDialogImportContacts(private val context: Context) : BottomSheetDial
 
     private fun importContacts() {
         lifecycleScope.launch {
-            if (Dialogs.ask(
+            if (Dialogs.Companion.ask(
                     context,
                     R.drawable.ic_warning,
                     "Import contacts",

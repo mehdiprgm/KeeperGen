@@ -194,6 +194,8 @@
                     android:layout_marginBottom="5dp"
                     android:checked="true"
                     android:text="Enable"
+                    app:thumbTint="@color/foreground"
+                    app:trackTint="@drawable/switch_custom_colors"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
@@ -391,7 +393,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="15dp"
                     android:background="@android:color/transparent"
-                    android:text="Disable screenshots when creating new items"
+                    android:text="Allow screenshots when creating new items"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layTitle" />
@@ -407,6 +409,55 @@
                     android:layout_marginBottom="5dp"
                     android:checked="true"
                     android:text="Enable"
+                    app:thumbTint="@color/foreground"
+                    app:trackTint="@drawable/switch_custom_colors"
+                    tools:ignore="HardcodedText" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/foreground_less" />
+
+                <TextView
+                    android:id="@+id/tvFingerPrint"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_fingerprint"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="15dp"
+                    android:text="Fingerprint"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tvFingerPrintDescription"
+                    style="@style/TextSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@android:color/transparent"
+                    android:text="Enable fingerprint"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layTitle" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchFingerprint"
+                    style="@style/TextNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:checked="true"
+                    android:text="Enable"
+                    app:thumbTint="@color/foreground"
+                    app:trackTint="@drawable/switch_custom_colors"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>

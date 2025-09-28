@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -20,8 +21,6 @@
             style="@style/TextBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_arrow_back"
             android:drawablePadding="10dp"
             android:text="About Us"
@@ -34,7 +33,7 @@
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -79,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="1.7"
+                    android:text="1.9"
                     app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
                     app:layout_constraintStart_toEndOf="@+id/tvAppName" />
 
@@ -92,16 +91,6 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/tvAppName"
                     app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
-
-                <ImageView
-                    android:id="@+id/imgClose1"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:contentDescription="Close"
-                    android:src="@drawable/ic_arrow_up"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="HardcodedText" />
 
                 <View
                     android:id="@+id/viewSep1"
@@ -132,7 +121,7 @@
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintTop_toBottomOf="@+id/cardAppInformation">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,17 +148,6 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imgClose2"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:contentDescription="Close"
-                    android:src="@drawable/ic_arrow_up"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvFeatures"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvFeatures"
-                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/tvFeature1"
@@ -239,7 +217,7 @@
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardFeatures">
@@ -268,17 +246,6 @@
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imgClose3"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:contentDescription="Close"
-                    android:src="@drawable/ic_arrow_up"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvFixedBugs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvFixedBugs"
-                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/tvFixedBug1"
@@ -311,10 +278,7 @@
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="40dp"
             android:animateLayoutChanges="true"
             android:clickable="true"
             android:focusable="true"
@@ -405,8 +369,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
-
     </LinearLayout>
 
 </ScrollView>

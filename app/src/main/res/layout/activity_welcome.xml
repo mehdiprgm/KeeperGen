@@ -28,7 +28,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/panelBackground"
+                style="@style/LayoutStyleBorderless"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="20dp">
@@ -62,12 +62,11 @@
 
                 <Button
                     android:id="@+id/btnCreatePasscode"
-                    style="@style/TextNormal"
+                    style="@style/ButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/button_background"
                     android:text="Create passcode" />
 
             </LinearLayout>

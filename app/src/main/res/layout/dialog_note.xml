@@ -93,11 +93,10 @@
 
         <Button
             android:id="@+id/btnApply"
-            style="@style/TextNormal"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/button_background"
             android:text="Update information"
             android:textColor="@color/black"
             android:textStyle="bold"

@@ -16,6 +16,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import org.zendev.keepergen.R
 import org.zendev.keepergen.activity.MainActivity
 import org.zendev.keepergen.databinding.ActivityPasscodeLoginBinding
@@ -28,8 +29,8 @@ import org.zendev.keepergen.tools.preferencesName
 
 class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWatcher {
     private lateinit var b: ActivityPasscodeLoginBinding
-    private val REQUEST_CODE = 1001
 
+    private val requestCode = 1001
     private var attempts = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +115,9 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
 
     override fun onResume() {
         super.onResume()
+
         startKeyPadAnimation()
+        setFingerprintStatus()
     }
 
     override fun onActivityResult(
@@ -123,7 +126,7 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
         super.onActivityResult(requestCode, resultCode, data)
 
         /* get the result */
-        if (requestCode == REQUEST_CODE) {
+        if (requestCode == this@PasscodeLoginActivity.requestCode) {
             if (resultCode == RESULT_OK) {
                 b.txtPasscode.text.clear()
                 startActivity(Intent(this, MainActivity::class.java))
@@ -179,7 +182,7 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
             keyguardManager.createConfirmDeviceCredentialIntent("Unlock", "Please enter your PIN")
 
         if (intent != null) {
-            startActivityForResult(intent, REQUEST_CODE)
+            startActivityForResult(intent, requestCode)
         }
     }
 
@@ -231,5 +234,24 @@ class PasscodeLoginActivity : AppCompatActivity(), View.OnClickListener, TextWat
 
             animator.start()
         }
+    }
+
+    private fun setFingerprintStatus() {
+        val pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
+        val enabled = pref.getBoolean("Fingerprint", true)
+
+        if (enabled) {
+            b.imgFingerprint.visibility = View.VISIBLE
+            b.tvForgetPassword.visibility = View.VISIBLE
+            b.tvUseFingerprint.visibility = View.VISIBLE
+        } else {
+            b.imgFingerprint.visibility = View.INVISIBLE
+            b.tvForgetPassword.visibility = View.INVISIBLE
+            b.tvUseFingerprint.visibility = View.INVISIBLE
+        }
+
+        b.imgFingerprint.isClickable = enabled
+
+
     }
 }

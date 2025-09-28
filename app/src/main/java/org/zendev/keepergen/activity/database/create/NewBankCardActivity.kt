@@ -1,20 +1,29 @@
-package org.zendev.keepergen.activity.database
+package org.zendev.keepergen.activity.database.create
 
 import android.app.DatePickerDialog
+import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.DatePicker
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
 import org.zendev.keepergen.database.entity.BankCard
 import org.zendev.keepergen.databinding.ActivityNewBankCardBinding
+import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.CreditCardNumberFormattingTextWatcher
+import org.zendev.keepergen.tools.disableActivityScreenShot
 import org.zendev.keepergen.tools.disableScreenPadding
+import org.zendev.keepergen.tools.getAllViews
+import org.zendev.keepergen.tools.preferencesName
 import org.zendev.keepergen.tools.validateEditTextData
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
@@ -22,6 +31,9 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
     DatePickerDialog.OnDateSetListener {
     private lateinit var b: ActivityNewBankCardBinding
     private lateinit var databaseViewModel: DatabaseViewModel
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
+    private lateinit var pref: SharedPreferences
 
     private lateinit var cardName: String
 
@@ -39,9 +51,12 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
 
         setupViewModel()
         setupFormValidator()
+        setOnBackPressedListener()
 
         loadCardName()
         loadDate()
+        loadPreferences()
+
         formatBankCardNumber()
 
         b.btnFinish.setOnClickListener(this)
@@ -64,7 +79,7 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
                 if (isFormValid()) {
                     val bankCard = BankCard(
                         cardName = cardName,
-                        cardNumber = cardName,
+                        cardNumber = b.txtCardNumber.text.toString(),
                         cvv2 = b.txtCvv2.text.toString(),
                         month = month.toString(),
                         year = year.toString(),
@@ -140,6 +155,14 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
         b.tvDateResult.text = "$year / $month"
     }
 
+    private fun loadPreferences() {
+        pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
+
+        if (!pref.getBoolean("Screenshot", false)) {
+            disableActivityScreenShot(this)
+        }
+    }
+
     private fun setupViewModel() {/* used indexing instead of get method (get(ViewModel::class.java)) */
         databaseViewModel = ViewModelProvider(this)[DatabaseViewModel::class.java]
     }
@@ -160,7 +183,7 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().isEmpty()) {
                     b.txtLayCardNumber.error = "Card number is empty"
-                } else if (s.toString().replace(" ", "").length != 16) {
+                } else if (s.toString().length != 19) {
                     b.txtLayCardNumber.error = "Card number is not correct"
                 } else {
                     b.txtLayCardNumber.isErrorEnabled = false
@@ -204,5 +227,49 @@ class NewBankCardActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
         })
+    }
+
+    private fun setOnBackPressedListener() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (pref.getBoolean("ConfirmChanges", false)) {
+                    var editTextsEmpty = true
+                    val views = getAllViews(b.layNewAccount, false)
+
+                    for (view in views) {
+                        if (view is TextInputEditText) {
+                            if (view.text.toString().isNotEmpty()) {
+                                editTextsEmpty = false
+                                break
+                            }
+                        }
+                    }
+
+                    /* if no text exists in the entire form */
+                    if (editTextsEmpty) {
+                        finish()
+                    } else {
+                        lifecycleScope.launch {
+                            if (Dialogs.ask(
+                                    this@NewBankCardActivity,
+                                    R.drawable.ic_warning,
+                                    "Discard changes",
+                                    "Are you sure you want to exit?\nAll the information in this form will be list",
+                                    false
+                                )
+                            ) {
+                                finish()
+                            }
+                        }
+                    }
+                } else {
+                    finish()
+                }
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
     }
 }

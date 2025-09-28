@@ -1,22 +1,18 @@
 package org.zendev.keepergen.dialog
 
-import android.animation.LayoutTransition
 import android.app.Dialog
 import android.content.Context
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.zendev.keepergen.R
@@ -24,18 +20,13 @@ import org.zendev.keepergen.tools.preferencesName
 import kotlin.coroutines.resume
 import androidx.core.content.edit
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.switchmaterial.SwitchMaterial
-import org.zendev.keepergen.database.entity.Account
-import org.zendev.keepergen.database.entity.BankCard
-import org.zendev.keepergen.database.entity.Contact
-import org.zendev.keepergen.database.entity.Note
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.generatePassword
-import org.zendev.keepergen.tools.getDate
 import org.zendev.keepergen.tools.getPasswordStrength
 import org.zendev.keepergen.tools.resizeTextViewDrawable
-import org.zendev.keepergen.tools.setEditTextLimiter
 import org.zendev.keepergen.tools.startDialogAnimation
 
 class Dialogs {
@@ -59,138 +50,28 @@ class Dialogs {
             return dialog
         }
 
-        private fun isAccountInformationValid(dialog: Dialog): Boolean {
-            val txtName = dialog.findViewById<EditText>(R.id.txtName)
-            val txtUsername = dialog.findViewById<EditText>(R.id.txtUsername)
-            val txtPassword = dialog.findViewById<EditText>(R.id.txtPassword)
-            val txtPhoneNumber = dialog.findViewById<EditText>(R.id.txtPhoneNumber)
-
-            var score = 4
-
-//            score += validateEditTextData(
-//                txtName, txtName.text.toString().isEmpty(), "Name is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtUsername, txtUsername.text.toString().isEmpty(), "Username is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPassword, txtPassword.text.toString().isEmpty(), "Password is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
-//            )
-
-            return score == 4
-        }
-
-        private fun isBankCardInformationValid(dialog: Dialog): Boolean {
-            val txtCardName = dialog.findViewById<EditText>(R.id.txtCardName)
-            val txtCardNumber = dialog.findViewById<EditText>(R.id.txtCardNumber)
-            val txtCvv2 = dialog.findViewById<EditText>(R.id.txtCvv2)
-            val txtMonth = dialog.findViewById<EditText>(R.id.txtMonth)
-            val txtYear = dialog.findViewById<EditText>(R.id.txtYear)
-            val txtPassword = dialog.findViewById<EditText>(R.id.txtPassword)
-
-            var score = 6
-
-//            score += validateEditTextData(
-//                txtCardName, txtCardName.text.toString().isEmpty(), "Card name is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtCardNumber, txtCardNumber.text.toString().isEmpty(), "Card number is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtCardNumber,
-//                txtCardNumber.text.toString().replace(" ", "").length != 16,
-//                "Card number is invalid"
-//            )
-//
-//            score += validateEditTextData(
-//                txtCvv2, txtCvv2.text.isEmpty(), "Cvv2 is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtCvv2, txtCvv2.text.length != 4, "Cvv2 is invalid"
-//            )
-//
-//            score += validateEditTextData(
-//                txtMonth, txtMonth.text.isEmpty(), "Month is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtMonth, txtMonth.text.length != 2, "Month is invalid"
-//            )
-//
-//            score += validateEditTextData(
-//                txtYear, txtYear.text.isEmpty(), "Year is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtYear, txtYear.text.length != 2, "Year is invalid"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPassword, txtPassword.text.isEmpty(), "Password is empty"
-//            )
-
-            return score == 6
-        }
-
-        private fun isContactInformationValid(dialog: Dialog): Boolean {
-            val txtName = dialog.findViewById<EditText>(R.id.txtName)
-            val txtPhoneNumber = dialog.findViewById<EditText>(R.id.txtPhoneNumber)
-
-            var score = 2
-
-//            score += validateEditTextData(
-//                txtName, txtName.text.toString().isEmpty(), "Name is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPhoneNumber, txtPhoneNumber.text.toString().isEmpty(), "Phone number is empty"
-//            )
-//
-//            score += validateEditTextData(
-//                txtPhoneNumber, txtPhoneNumber.text.length != 11, "Phone number is invalid"
-//            )
-
-            return score == 2
-        }
-
-        private fun isNoteInformationValid(dialog: Dialog): Boolean {
-            val txtName = dialog.findViewById<EditText>(R.id.txtName)
-            return txtName.text.toString().isNotEmpty()
-        }
-
         suspend fun registerPasscode(context: Context): Boolean =
             suspendCancellableCoroutine { continuation ->
                 val dialog = createDialog(context, R.layout.dialog_register_passcode)
                 dialog.setCancelable(true)
                 startDialogAnimation(dialog.findViewById(R.id.main))
 
-                dialog.findViewById<Button>(R.id.btnRegister).setOnClickListener {
-                    /* validate the passcode */
-                    val txtPasscode = dialog.findViewById<EditText>(R.id.txtPasscode)
+                val txtPasscode = dialog.findViewById<TextInputEditText>(R.id.txtPasscode)
+                val txtLayPasscode = dialog.findViewById<TextInputLayout>(R.id.txtLayPasscode)
 
-                    if (txtPasscode.text.isEmpty()) {
-                        txtPasscode.error = "Passcode is empty."
+                val btnRegister = dialog.findViewById<Button>(R.id.btnRegister)
+                btnRegister.setOnClickListener {
+                    if (txtPasscode.text.toString().isEmpty()) {
+                        txtLayPasscode.error = "Passcode is empty."
+                        txtLayPasscode.isErrorEnabled = true
                     } else {
-                        txtPasscode.error = null
+                        txtLayPasscode.isErrorEnabled = false
 
                         /* update the preferences */
-                        val sharedPreferences =
+                        val pref =
                             context.getSharedPreferences(preferencesName, MODE_PRIVATE)
 
-                        sharedPreferences.edit {
+                        pref.edit {
                             putBoolean("Registered", true)
                             putString("Passcode", txtPasscode.text.toString())
                         }
@@ -245,266 +126,6 @@ class Dialogs {
                 }
             }
 
-        suspend fun account(context: Context, account: Account? = null): Account =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_account)
-                dialog.setCancelable(true)
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                var accountType = "Social media"
-
-                val txtName = dialog.findViewById<EditText>(R.id.txtName)
-                val txtUsername = dialog.findViewById<EditText>(R.id.txtUsername)
-                val txtPassword = dialog.findViewById<EditText>(R.id.txtPassword)
-                val txtPhoneNumber = dialog.findViewById<EditText>(R.id.txtPhoneNumber)
-                val txtComment = dialog.findViewById<EditText>(R.id.txtComment)
-
-                val tvPhoneNumberLimiter = dialog.findViewById<TextView>(R.id.tvPhoneNumberLimiter)
-
-                val btnApply = dialog.findViewById<Button>(R.id.btnApply)
-                val btnSocialMedia = dialog.findViewById<RadioButton>(R.id.btnSocialMedia)
-                val btnWebsite = dialog.findViewById<RadioButton>(R.id.btnWebsite)
-                val btnEmailAddress = dialog.findViewById<RadioButton>(R.id.btnEmailAddress)
-                val btnOthers = dialog.findViewById<RadioButton>(R.id.btnOthers)
-
-                val layAccountType = dialog.findViewById<ConstraintLayout>(R.id.layAccountType)
-
-                /* Setup layout transition */
-                layAccountType.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
-
-                setEditTextLimiter(txtPhoneNumber, tvPhoneNumberLimiter, 11, true)
-
-                /* Loads information */
-                if (account == null) {
-                    btnApply.text = "Create account"
-                } else {
-                    txtName.setText(account.name)
-                    txtUsername.setText(account.username)
-                    txtPassword.setText(account.password)
-                    txtPhoneNumber.setText(account.phoneNumber)
-                    txtComment.setText(account.comment)
-
-                    when (account.accountType) {
-                        "Social media" -> {
-                            btnSocialMedia.isChecked = true
-                        }
-
-                        "Website" -> {
-                            btnWebsite.isChecked = true
-                        }
-
-                        "Email address" -> {
-                            btnEmailAddress.isChecked = true
-                        }
-
-                        "Others" -> {
-                            btnOthers.isChecked = true
-                        }
-                    }
-                }
-
-                btnApply.setOnClickListener {
-                    if (isAccountInformationValid(dialog)) {/* Create */
-                        if (account == null) {
-                            val account = Account(
-                                name = txtName.text.toString(),
-                                phoneNumber = txtPhoneNumber.text.toString(),
-                                username = txtUsername.text.toString(),
-                                password = txtPassword.text.toString(),
-                                accountType = accountType,
-                                comment = txtComment.text.toString()
-                            )
-
-                            continuation.resume(account)
-                            dialog.dismiss()
-                        } else {
-                            account.name = txtName.text.toString()
-                            account.phoneNumber = txtPhoneNumber.text.toString()
-                            account.username = txtUsername.text.toString()
-                            account.password = txtPassword.text.toString()
-                            account.accountType = accountType
-                            account.comment = txtComment.text.toString()
-
-                            continuation.resume(account)
-                            dialog.dismiss()
-                        }
-                    }
-                }
-
-                btnSocialMedia.setOnClickListener {
-                    accountType = "Social media"
-                }
-
-                btnWebsite.setOnClickListener {
-                    accountType = "Website"
-                }
-
-                btnEmailAddress.setOnClickListener {
-                    accountType = "Email address"
-                }
-
-                btnOthers.setOnClickListener {
-                    accountType = "Others"
-                }
-
-                dialog.show()
-            }
-
-        suspend fun bankCard(context: Context, bankCard: BankCard? = null): BankCard? =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_bank_card)
-                dialog.setCancelable(true)
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                val txtCardName = dialog.findViewById<EditText>(R.id.txtCardName)
-                val txtCardNumber = dialog.findViewById<EditText>(R.id.txtCardNumber)
-                val txtCvv2 = dialog.findViewById<EditText>(R.id.txtCvv2)
-                val txtMonth = dialog.findViewById<EditText>(R.id.txtMonth)
-                val txtYear = dialog.findViewById<EditText>(R.id.txtYear)
-                val txtPassword = dialog.findViewById<EditText>(R.id.txtPassword)
-
-                val tvCardNumberLimiter = dialog.findViewById<TextView>(R.id.tvCardNumberLimiter)
-                val tvCvv2Limiter = dialog.findViewById<TextView>(R.id.tvCvv2Limiter)
-
-                val btnApply = dialog.findViewById<Button>(R.id.btnApply)
-
-                setEditTextLimiter(txtCardNumber, tvCardNumberLimiter, 16, true)
-                setEditTextLimiter(txtCvv2, tvCvv2Limiter, 4)
-
-                /* Loads information */
-                if (bankCard == null) {
-                    btnApply.text = "Create bank card"
-                } else {
-                    txtCardName.setText(bankCard.cardName)
-                    txtCardNumber.setText(bankCard.cardNumber)
-                    txtCvv2.setText(bankCard.cvv2)
-                    txtMonth.setText(bankCard.month)
-                    txtYear.setText(bankCard.year)
-                    txtPassword.setText(bankCard.password)
-                }
-
-                btnApply.setOnClickListener {
-                    if (isBankCardInformationValid(dialog)) {/* Create */
-                        if (bankCard == null) {
-                            val bankCard = BankCard(
-                                cardName = txtCardName.text.toString(),
-                                cardNumber = txtCardNumber.text.toString(),
-                                cvv2 = txtCvv2.text.toString(),
-                                month = txtMonth.text.toString(),
-                                year = txtYear.text.toString(),
-                                password = txtPassword.text.toString()
-                            )
-
-                            continuation.resume(bankCard)
-                            dialog.dismiss()
-                        } else {
-                            bankCard.cardName = txtCardName.text.toString()
-                            bankCard.cardNumber = txtCardNumber.text.toString()
-                            bankCard.cvv2 = txtCvv2.text.toString()
-                            bankCard.month = txtMonth.text.toString()
-                            bankCard.year = txtYear.text.toString()
-                            bankCard.password = txtPassword.text.toString()
-
-                            continuation.resume(bankCard)
-                            dialog.dismiss()
-                        }
-                    }
-                }
-
-                dialog.show()
-            }
-
-        suspend fun contact(context: Context, contact: Contact? = null): Contact? =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_contact)
-                dialog.setCancelable(true)
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                val txtName = dialog.findViewById<EditText>(R.id.txtName)
-                val txtPhoneNumber = dialog.findViewById<EditText>(R.id.txtPhoneNumber)
-                val txtComment = dialog.findViewById<EditText>(R.id.txtComment)
-
-                val tvPhoneNumberLimiter = dialog.findViewById<TextView>(R.id.tvPhoneNumberLimiter)
-                val btnApply = dialog.findViewById<Button>(R.id.btnApply)
-
-                setEditTextLimiter(txtPhoneNumber, tvPhoneNumberLimiter, 11, true)
-
-                /* Loads information */
-                if (contact == null) {
-                    btnApply.text = "Create contact"
-                } else {
-                    txtName.setText(contact.name)
-                    txtPhoneNumber.setText(contact.phoneNumber)
-                    txtComment.setText(contact.comment)
-                }
-
-                btnApply.setOnClickListener {
-                    if (isContactInformationValid(dialog)) {/* Create */
-                        if (contact == null) {
-                            val contact = Contact(
-                                name = txtName.text.toString(),
-                                phoneNumber = txtPhoneNumber.text.toString(),
-                                comment = txtComment.text.toString()
-                            )
-
-                            continuation.resume(contact)
-                            dialog.dismiss()
-                        } else {
-                            contact.name = txtName.text.toString()
-                            contact.phoneNumber = txtPhoneNumber.text.toString()
-                            contact.comment = txtComment.text.toString()
-
-                            continuation.resume(contact)
-                            dialog.dismiss()
-                        }
-                    }
-                }
-
-                dialog.show()
-            }
-
-        suspend fun note(context: Context, note: Note? = null): Note? =
-            suspendCancellableCoroutine { continuation ->
-                val dialog = createDialog(context, R.layout.dialog_note)
-                dialog.setCancelable(true)
-                startDialogAnimation(dialog.findViewById(R.id.main))
-
-                val txtName = dialog.findViewById<EditText>(R.id.txtName)
-                val txtContent = dialog.findViewById<EditText>(R.id.txtContent)
-
-                val btnApply = dialog.findViewById<Button>(R.id.btnApply)
-
-                /* Loads information */
-                if (note == null) {
-                    btnApply.text = "Create note"
-                } else {
-                    txtName.setText(note.name)
-                    txtContent.setText(note.content)
-                }
-
-                btnApply.setOnClickListener {
-                    if (isNoteInformationValid(dialog)) {/* Create */
-                        if (note == null) {
-                            val note = Note(
-                                name = txtName.text.toString(),
-                                content = txtContent.text.toString(),
-                                modifyDate = getDate()
-                            )
-
-                            continuation.resume(note)
-                            dialog.dismiss()
-                        } else {
-                            note.name = txtName.text.toString()
-                            note.content = txtContent.text.toString()
-
-                            continuation.resume(note)
-                            dialog.dismiss()
-                        }
-                    }
-                }
-
-                dialog.show()
-            }
 
         suspend fun textInput(
             context: Context,

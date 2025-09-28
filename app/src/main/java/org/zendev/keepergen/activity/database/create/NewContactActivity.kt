@@ -1,22 +1,34 @@
-package org.zendev.keepergen.activity.database
+package org.zendev.keepergen.activity.database.create
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
 import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.databinding.ActivityNewContactBinding
+import org.zendev.keepergen.dialog.Dialogs
+import org.zendev.keepergen.tools.disableActivityScreenShot
 import org.zendev.keepergen.tools.disableScreenPadding
+import org.zendev.keepergen.tools.getAllViews
+import org.zendev.keepergen.tools.preferencesName
 import org.zendev.keepergen.tools.validateEditTextData
 import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
 class NewContactActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var b: ActivityNewContactBinding
     private lateinit var databaseViewModel: DatabaseViewModel
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
+    private lateinit var pref: SharedPreferences
 
     private lateinit var name: String
 
@@ -28,9 +40,11 @@ class NewContactActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(b.root)
         disableScreenPadding(b.root)
 
+        setOnBackPressedListener()
         setupViewModel()
         setupFormValidator()
 
+        loadPreferences()
         loadName()
 
         b.btnFinish.setOnClickListener(this)
@@ -61,6 +75,14 @@ class NewContactActivity : AppCompatActivity(), View.OnClickListener {
         name = intent.getStringExtra("Name")!!
     }
 
+        private fun loadPreferences() {
+        pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
+
+        if (!pref.getBoolean("Screenshot", false)) {
+            disableActivityScreenShot(this)
+        }
+    }
+
     private fun isFormValid(): Boolean {
         var score = 1
 
@@ -80,7 +102,7 @@ class NewContactActivity : AppCompatActivity(), View.OnClickListener {
         return score == 1
     }
 
-     private fun setupFormValidator() {
+    private fun setupFormValidator() {
         b.txtPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -102,5 +124,49 @@ class NewContactActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         })
+    }
+
+    private fun setOnBackPressedListener() {
+        onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (pref.getBoolean("ConfirmChanges", false)) {
+                    var editTextsEmpty = true
+                    val views = getAllViews(b.layNewAccount, false)
+
+                    for (view in views) {
+                        if (view is TextInputEditText) {
+                            if (view.text.toString().isNotEmpty()) {
+                                editTextsEmpty = false
+                                break
+                            }
+                        }
+                    }
+
+                    /* if no text exists in the entire form */
+                    if (editTextsEmpty) {
+                        finish()
+                    } else {
+                        lifecycleScope.launch {
+                            if (Dialogs.ask(
+                                    this@NewContactActivity,
+                                    R.drawable.ic_warning,
+                                    "Discard changes",
+                                    "Are you sure you want to exit?\nAll the information in this form will be list",
+                                    false
+                                )
+                            ) {
+                                finish()
+                            }
+                        }
+                    }
+                } else {
+                    finish()
+                }
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(
+            this, onBackPressedCallback
+        )
     }
 }

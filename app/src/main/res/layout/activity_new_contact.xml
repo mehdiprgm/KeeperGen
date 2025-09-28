@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    tools:context=".activity.database.NewContactActivity">
+    tools:context=".activity.database.create.NewContactActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -123,7 +123,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button_background"
                 android:text="Finish"
                 android:textColor="@color/black"
                 android:textStyle="bold"

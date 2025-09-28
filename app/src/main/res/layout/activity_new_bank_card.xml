@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:scrollbars="none"
-    tools:context=".activity.database.NewBankCardActivity">
+    tools:context=".activity.database.create.NewBankCardActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Card number"
                     android:inputType="numberSigned"
-                    android:maxLength="16"
+                    android:maxLength="19"
                     android:singleLine="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -184,7 +184,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/button_background"
                 android:text="Finish"
                 android:textColor="@color/black"
                 android:textStyle="bold"

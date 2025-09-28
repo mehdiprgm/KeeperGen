@@ -2,6 +2,7 @@ package org.zendev.keepergen.activity
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -44,11 +45,11 @@ import org.zendev.keepergen.database.entity.Account
 import org.zendev.keepergen.database.entity.BankCard
 import org.zendev.keepergen.database.entity.Contact
 import org.zendev.keepergen.database.entity.Note
-import org.zendev.keepergen.dialog.BottomDialogAccountDetails
-import org.zendev.keepergen.dialog.BottomDialogBankCardDetails
-import org.zendev.keepergen.dialog.BottomDialogContactDetails
-import org.zendev.keepergen.dialog.BottomDialogNewItem
-import org.zendev.keepergen.dialog.BottomDialogNoteDetails
+import org.zendev.keepergen.dialog.bottom.details.BottomDialogAccountDetails
+import org.zendev.keepergen.dialog.bottom.details.BottomDialogBankCardDetails
+import org.zendev.keepergen.dialog.bottom.details.BottomDialogContactDetails
+import org.zendev.keepergen.dialog.bottom.BottomDialogNewItem
+import org.zendev.keepergen.dialog.bottom.details.BottomDialogNoteDetails
 import org.zendev.keepergen.dialog.DialogType
 import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.changeTheme
@@ -97,7 +98,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         setupNavigationDrawer()
         setupViewModel()
         setupSearchBar()
-        setupNavigationHeader()
 
         setOnBackPressedListener()
 
@@ -114,7 +114,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         b.layNotes.setOnClickListener(this)
 
         b.layAccounts.performClick()
-
         lockActivityOrientation(this)
     }
 
@@ -380,7 +379,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         })
     }
 
-    private fun setupNavigationHeader() {
+    private fun setupNavigationDrawer() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        b.navMain.setNavigationItemSelectedListener(this)
+
         val view = b.navMain.getHeaderView(0)
         val pref = getSharedPreferences(preferencesName, MODE_PRIVATE)
 
@@ -433,11 +435,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    private fun setupNavigationDrawer() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        b.navMain.setNavigationItemSelectedListener(this)
-    }
-
     private fun changeBottomNavigationItem(view: LinearLayout) {
         val animation = AnimationUtils.loadAnimation(this, R.anim.pop_in)
         animation.duration = 300
@@ -471,6 +468,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun loadDatabaseTable(searchQuery: String = "") {
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_down)
         animation.duration = 300

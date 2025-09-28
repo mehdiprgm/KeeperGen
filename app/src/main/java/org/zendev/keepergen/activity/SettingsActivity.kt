@@ -9,18 +9,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.core.net.toUri
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.launch
 import org.zendev.keepergen.R
 import org.zendev.keepergen.databinding.ActivitySettingsBinding
-import org.zendev.keepergen.dialog.BottomDialogImportContacts
+import org.zendev.keepergen.dialog.bottom.BottomDialogImportContacts
 import org.zendev.keepergen.dialog.Dialogs
 import org.zendev.keepergen.tools.changeTheme
 import org.zendev.keepergen.tools.disableScreenPadding
 import org.zendev.keepergen.tools.preferencesName
-import org.zendev.keepergen.viewmodel.DatabaseViewModel
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener,
     CompoundButton.OnCheckedChangeListener {
@@ -39,6 +37,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
 
         b.switchConfirmChanges.setOnCheckedChangeListener(this)
         b.switchTakeScreenshot.setOnCheckedChangeListener(this)
+        b.switchFingerprint.setOnCheckedChangeListener(this)
 
         b.tvImportContacts.setOnClickListener(this)
         b.tvChangePasscode.setOnClickListener(this)
@@ -169,6 +168,14 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
                     putBoolean("Screenshot", isChecked)
                 }
             }
+
+            R.id.switchFingerprint -> {
+                setSwitchText(button as SwitchMaterial)
+
+                pref.edit {
+                    putBoolean("Fingerprint", isChecked)
+                }
+            }
         }
     }
 
@@ -213,9 +220,11 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener,
 
         b.switchConfirmChanges.isChecked = pref.getBoolean("ConfirmChanges", false)
         b.switchTakeScreenshot.isChecked = pref.getBoolean("Screenshot", false)
+        b.switchFingerprint.isChecked = pref.getBoolean("Fingerprint", true)
 
         setSwitchText(b.switchConfirmChanges)
         setSwitchText(b.switchTakeScreenshot)
+        setSwitchText(b.switchFingerprint)
     }
 
     private fun setSwitchText(switch: SwitchMaterial) {
