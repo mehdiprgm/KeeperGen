@@ -36,6 +36,7 @@ import kotlin.random.Random
 
 /* Keepergen preferences */
 const val preferencesName = "KGPREF"
+const val appVersion = "1.11"
 
 val selectedItems = mutableSetOf<Any>()
 val selectedViews = mutableSetOf<MaterialCheckBox>()

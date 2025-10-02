@@ -52,6 +52,7 @@ import org.zendev.keepergen.dialog.bottom.BottomDialogNewItem
 import org.zendev.keepergen.dialog.bottom.details.BottomDialogNoteDetails
 import org.zendev.keepergen.dialog.DialogType
 import org.zendev.keepergen.dialog.Dialogs
+import org.zendev.keepergen.tools.appVersion
 import org.zendev.keepergen.tools.changeTheme
 import org.zendev.keepergen.tools.copyTextToClipboard
 import org.zendev.keepergen.tools.disableScreenPadding
@@ -393,6 +394,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         val imgLogo = view.findViewById<ImageView>(R.id.imgLogo)
         val imgTheme = view.findViewById<ImageView>(R.id.imgTheme)
 
+        val tvAppVersion = view.findViewById<TextView>(R.id.tvAppVersion)
+
         val animator = ObjectAnimator.ofFloat(imgLogo, View.ROTATION, 0f, 360f)
 
         animator.duration = 5000
@@ -437,6 +440,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                 }
             }
         }
+
+        tvAppVersion.text = appVersion
     }
 
     private fun changeBottomNavigationItem(view: LinearLayout) {

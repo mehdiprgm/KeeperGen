@@ -14,6 +14,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import org.zendev.keepergen.R
 import org.zendev.keepergen.databinding.ActivityAboutUsBinding
+import org.zendev.keepergen.tools.appVersion
 import org.zendev.keepergen.tools.disableScreenPadding
 
 class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
@@ -35,6 +36,8 @@ class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
         b.imgGithub.setOnClickListener(this)
 
         b.tvTitle.setOnClickListener(this)
+
+        loadAppVersion()
     }
 
     override fun onClick(view: View?) {
@@ -103,5 +106,9 @@ class AboutUsActivity : AppCompatActivity(), View.OnClickListener {
         animator.interpolator = LinearInterpolator()
 
         animator.start()
+    }
+
+    private fun loadAppVersion() {
+        b.tvAppVersion.text = appVersion
     }
 }
