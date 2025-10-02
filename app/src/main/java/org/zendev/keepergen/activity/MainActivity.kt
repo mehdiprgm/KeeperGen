@@ -104,9 +104,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         b.imgMenu.setOnClickListener(this)
 
         b.btnAdd.setOnClickListener(this)
-        b.btnDelete.setOnClickListener(this)
-        b.btnShare.setOnClickListener(this)
-        b.btnCopy.setOnClickListener(this)
+//        b.btnDelete.setOnClickListener(this)
+//        b.btnShare.setOnClickListener(this)
+//        b.btnCopy.setOnClickListener(this)
 
         b.layAccounts.setOnClickListener(this)
         b.layBankCards.setOnClickListener(this)
@@ -139,128 +139,132 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                 newItemDialog.show(supportFragmentManager, "New Item")
             }
 
-            R.id.btnDelete -> {
-                if (selectedItems.isNotEmpty()) {
-                    val firstItem = selectedItems.first()
-
-                    lifecycleScope.launch {
-                        if (Dialogs.ask(
-                                this@MainActivity,
-                                R.drawable.ic_delete,
-                                "Delete selected items",
-                                "You have selected ${selectedItems.size} item(s) from the list.\nAre you sure you want to delete these items?\nChanges can't undo."
-                            )
-                        ) {
-                            when (firstItem) {
-                                is Account -> {
-                                    for (account in selectedItems) {
-                                        databaseViewModel.deleteAccount(account as Account)
-                                    }
-                                }
-
-                                is BankCard -> {
-                                    for (bankCard in selectedItems) {
-                                        databaseViewModel.deleteBankCard(bankCard as BankCard)
-                                    }
-                                }
-
-                                is Contact -> {
-                                    for (contact in selectedItems) {
-                                        databaseViewModel.deleteContact(contact as Contact)
-                                    }
-                                }
-
-                                is Note -> {
-                                    for (note in selectedItems) {
-                                        databaseViewModel.deleteNote(note as Note)
-                                    }
-                                }
-                            }
-
-                            disableSelectionMode()
-                        }
-                    }
-                }
-            }
-
-            R.id.btnShare -> {
-                val sb = StringBuilder()
-
-                if (selectedItems.isNotEmpty()) {
-                    val firstItem = selectedItems.first()
-
-                    /* create text to share text */
-                    when (firstItem) {
-                        is Account -> {
-                            for (account in selectedItems) {
-                                sb.append(account)
-                            }
-                        }
-
-                        is BankCard -> {
-                            for (bankCard in selectedItems) {
-                                sb.append(bankCard)
-                            }
-                        }
-
-                        is Contact -> {
-                            for (contact in selectedItems) {
-                                sb.append(contact)
-                            }
-                        }
-
-                        is Note -> {
-                            for (note in selectedItems) {
-                                sb.append(note)
-                            }
-                        }
-                    }
-
-                    disableSelectionMode()
-                    shareText(this, "Share information", sb.toString())
-                }
-            }
-
-            R.id.btnCopy -> {
-                val sb = StringBuilder()
-
-                if (selectedItems.isNotEmpty()) {
-                    val firstItem = selectedItems.first()
-
-                    /* create text to share text */
-                    when (firstItem) {
-                        is Account -> {
-                            for (account in selectedItems) {
-                                sb.append(account)
-                            }
-                        }
-
-                        is BankCard -> {
-                            for (bankCard in selectedItems) {
-                                sb.append(bankCard)
-                            }
-                        }
-
-                        is Contact -> {
-                            for (contact in selectedItems) {
-                                sb.append(contact)
-                            }
-                        }
-
-                        is Note -> {
-                            for (note in selectedItems) {
-                                sb.append(note)
-                            }
-                        }
-                    }
-
-                    disableSelectionMode()
-                    copyTextToClipboard(this, "Keepergen", sb.toString())
-                }
-            }
+//            R.id.btnDelete -> {
+//                if (selectedItems.isNotEmpty()) {
+//                    val firstItem = selectedItems.first()
+//
+//                    lifecycleScope.launch {
+//                        if (Dialogs.ask(
+//                                this@MainActivity,
+//                                R.drawable.ic_delete,
+//                                "Delete selected items",
+//                                "You have selected ${selectedItems.size} item(s) from the list.\nAre you sure you want to delete these items?\nChanges can't undo."
+//                            )
+//                        ) {
+//                            when (firstItem) {
+//                                is Account -> {
+//                                    for (account in selectedItems) {
+//                                        databaseViewModel.deleteAccount(account as Account)
+//                                    }
+//                                }
+//
+//                                is BankCard -> {
+//                                    for (bankCard in selectedItems) {
+//                                        databaseViewModel.deleteBankCard(bankCard as BankCard)
+//                                    }
+//                                }
+//
+//                                is Contact -> {
+//                                    for (contact in selectedItems) {
+//                                        databaseViewModel.deleteContact(contact as Contact)
+//                                    }
+//                                }
+//
+//                                is Note -> {
+//                                    for (note in selectedItems) {
+//                                        databaseViewModel.deleteNote(note as Note)
+//                                    }
+//                                }
+//                            }
+//
+//                            disableSelectionMode()
+//                        }
+//                    }
+//                }
+//            }
+//
+//            R.id.btnShare -> {
+//                val sb = StringBuilder()
+//
+//                if (selectedItems.isNotEmpty()) {
+//                    val firstItem = selectedItems.first()
+//
+//                    /* create text to share text */
+//                    when (firstItem) {
+//                        is Account -> {
+//                            for (account in selectedItems) {
+//                                sb.append(account)
+//                            }
+//                        }
+//
+//                        is BankCard -> {
+//                            for (bankCard in selectedItems) {
+//                                sb.append(bankCard)
+//                            }
+//                        }
+//
+//                        is Contact -> {
+//                            for (contact in selectedItems) {
+//                                sb.append(contact)
+//                            }
+//                        }
+//
+//                        is Note -> {
+//                            for (note in selectedItems) {
+//                                sb.append(note)
+//                            }
+//                        }
+//                    }
+//
+//                    disableSelectionMode()
+//                    shareText(this, "Share information", sb.toString())
+//                }
+//            }
+//
+//            R.id.btnCopy -> {
+//                val sb = StringBuilder()
+//
+//                if (selectedItems.isNotEmpty()) {
+//                    val firstItem = selectedItems.first()
+//
+//                    /* create text to share text */
+//                    when (firstItem) {
+//                        is Account -> {
+//                            for (account in selectedItems) {
+//                                sb.append(account)
+//                            }
+//                        }
+//
+//                        is BankCard -> {
+//                            for (bankCard in selectedItems) {
+//                                sb.append(bankCard)
+//                            }
+//                        }
+//
+//                        is Contact -> {
+//                            for (contact in selectedItems) {
+//                                sb.append(contact)
+//                            }
+//                        }
+//
+//                        is Note -> {
+//                            for (note in selectedItems) {
+//                                sb.append(note)
+//                            }
+//                        }
+//                    }
+//
+//                    disableSelectionMode()
+//                    copyTextToClipboard(this, "Keepergen", sb.toString())
+//                }
+//            }
 
             R.id.imgMenu -> {
-                b.main.openDrawer(GravityCompat.START)
+                if (isSelectionModeActivated) {
+                    disableSelectionMode()
+                } else {
+                    b.main.openDrawer(GravityCompat.START)
+                }
             }
 
             R.id.layAccounts -> {/* we change the currentIndex variable so the app name textview can change when loadDatatableTable function called */
@@ -459,43 +463,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         /* The view is linearlayout, so get all the views in the layout and set their properties */
         getAllViews(view, false).forEach {
             if (it is ShapeableImageView) {
-                it.setColorFilter(getResourceColor(R.color.theme), PorterDuff.Mode.SRC_IN)
+                it.setColorFilter(getResourceColor(R.color.foreground), PorterDuff.Mode.SRC_IN)
                 it.startAnimation(animation)
             } else if (it is TextView) {
                 it.setTypeface(null, Typeface.BOLD)
-                it.setTextColor(getResourceColor(R.color.theme))
+                it.setTextColor(getResourceColor(R.color.foreground))
             }
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun loadDatabaseTable(searchQuery: String = "") {
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_down)
         animation.duration = 300
 
         when (currentIndex) {
             1 -> {
-                b.tvAppName.text = "Accounts"
                 loadAccounts(searchQuery)
             }
 
             2 -> {
-                b.tvAppName.text = "Bank Cards"
                 loadBankCards(searchQuery)
             }
 
             3 -> {
-                b.tvAppName.text = "Contacts"
                 loadContacts(searchQuery)
             }
 
             4 -> {
-                b.tvAppName.text = "Notes"
                 loadNotes(searchQuery)
             }
         }
-
-        b.tvAppName.animation = animation
     }
 
     private fun setupViewModel() {/* used indexing instead of get method (get(ViewModel::class.java)) */
@@ -767,6 +764,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
                 noteAdapter.setShowCheckboxes(true)
             }
         }
+
+        b.imgMenu.setImageResource(R.drawable.ic_close)
     }
 
     private fun disableSelectionMode() {
@@ -797,7 +796,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         }
 
         selectedViews.clear()
-        updateSelectedItemsText()
+        b.imgMenu.setImageResource(R.drawable.ic_menu)
     }
 
     /**
@@ -806,8 +805,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
     private fun addNewSelectedItem(checkBox: MaterialCheckBox, item: Any) {
         selectedItems.add(item)
         selectedViews.add(checkBox)
-
-        updateSelectedItemsText()
     }
 
     /**
@@ -818,7 +815,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
             selectedItems.remove(item)
             selectedViews.remove(checkBox)
 
-            updateSelectedItemsText()
             return true
         }
 
@@ -860,66 +856,42 @@ class MainActivity : AppCompatActivity(), View.OnClickListener,
         fadeInAnimation.duration = 300
         fadeOutAnimation.duration = 300
 
-        if (visible) {
-            b.btnDelete.apply {
-                visibility = View.VISIBLE
-                animation = fadeInAnimation
-                isClickable = true
-            }
-
-            b.btnShare.apply {
-                visibility = View.VISIBLE
-                animation = fadeInAnimation
-                isClickable = true
-            }
-
-            b.btnCopy.apply {
-                visibility = View.VISIBLE
-                animation = fadeInAnimation
-                isClickable = true
-            }
-        } else {
-            b.btnDelete.apply {
-                visibility = View.GONE
-                animation = fadeOutAnimation
-                isClickable = false
-            }
-
-            b.btnShare.apply {
-                visibility = View.GONE
-                animation = fadeOutAnimation
-                isClickable = false
-            }
-
-            b.btnCopy.apply {
-                visibility = View.GONE
-                animation = fadeOutAnimation
-                isClickable = false
-            }
-        }
-    }
-
-    private fun updateSelectedItemsText() {
-        if (selectedItems.isEmpty()) {
-            when (currentIndex) {
-                1 -> {
-                    b.tvAppName.text = "Accounts"
-                }
-
-                2 -> {
-                    b.tvAppName.text = "Bank Cards"
-                }
-
-                3 -> {
-                    b.tvAppName.text = "Contacts"
-                }
-
-                4 -> {
-                    b.tvAppName.text = "Notes"
-                }
-            }
-        } else {
-            b.tvAppName.text = "${selectedItems.size} Selected"
-        }
+//        if (visible) {
+//            b.btnDelete.apply {
+//                visibility = View.VISIBLE
+//                animation = fadeInAnimation
+//                isClickable = true
+//            }
+//
+//            b.btnShare.apply {
+//                visibility = View.VISIBLE
+//                animation = fadeInAnimation
+//                isClickable = true
+//            }
+//
+//            b.btnCopy.apply {
+//                visibility = View.VISIBLE
+//                animation = fadeInAnimation
+//                isClickable = true
+//            }
+//        } else {
+//            b.btnDelete.apply {
+//                visibility = View.GONE
+//                animation = fadeOutAnimation
+//                isClickable = false
+//            }
+//
+//            b.btnShare.apply {
+//                visibility = View.GONE
+//                animation = fadeOutAnimation
+//                isClickable = false
+//            }
+//
+//            b.btnCopy.apply {
+//                visibility = View.GONE
+//                animation = fadeOutAnimation
+//                isClickable = false
+//            }
+//        }
     }
 }

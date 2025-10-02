@@ -19,109 +19,110 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imgMenu"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="10dp"
-                android:contentDescription="Menu"
-                android:padding="5dp"
-                android:src="@drawable/ic_menu"
-                app:backgroundTint="@color/background"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvAppName"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:id="@+id/tvAppName"
-                style="@style/TextBig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Accounts"
-                app:layout_constraintStart_toEndOf="@+id/imgMenu"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnDelete"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Delete"
-                android:src="@drawable/ic_delete"
-                android:visibility="gone"
-                app:backgroundTint="@android:color/transparent"
-                app:elevation="0dp"
-                app:fabCustomSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAppName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvAppName"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnShare"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="Share"
-                android:src="@drawable/ic_share"
-                android:visibility="gone"
-                app:backgroundTint="@android:color/transparent"
-                app:elevation="0dp"
-                app:fabCustomSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
-                app:layout_constraintEnd_toStartOf="@+id/btnDelete"
-                app:layout_constraintTop_toTopOf="@+id/btnDelete"
-                tools:ignore="HardcodedText" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnCopy"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="Copy"
-                android:src="@drawable/ic_copy"
-                android:visibility="gone"
-                app:backgroundTint="@android:color/transparent"
-                app:elevation="0dp"
-                app:fabCustomSize="30dp"
-                app:layout_constraintBottom_toBottomOf="@+id/btnShare"
-                app:layout_constraintEnd_toStartOf="@+id/btnShare"
-                app:layout_constraintTop_toTopOf="@+id/btnShare"
-                tools:ignore="HardcodedText" />
-
-            <EditText
-                android:id="@+id/txtSearch"
+            <LinearLayout
+                android:id="@+id/layTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/edittext_search"
-                android:drawableStart="@drawable/ic_search"
-                android:drawablePadding="10dp"
-                android:hint="Search"
-                android:inputType="text"
-                android:padding="15dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="@drawable/layout_background_borderless"
+                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAppName"
-                tools:ignore="Autofill,HardcodedText" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgMenu"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:contentDescription="Menu"
+                    android:layout_marginEnd="5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_menu"
+                    app:backgroundTint="@color/background"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="HardcodedText" />
+
+                <EditText
+                    android:id="@+id/txtSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/edittext_search"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:drawablePadding="10dp"
+                    android:hint="Search"
+                    android:inputType="text"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imgMenu"
+                    tools:ignore="Autofill,HardcodedText" />
+            </LinearLayout>
+
+
+            <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--                android:id="@+id/btnDelete"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:layout_marginEnd="10dp"-->
+            <!--                android:contentDescription="Delete"-->
+            <!--                android:src="@drawable/ic_delete"-->
+            <!--                android:visibility="visible"-->
+            <!--                app:backgroundTint="@android:color/transparent"-->
+            <!--                app:elevation="0dp"-->
+            <!--                app:fabCustomSize="30dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/tvAppName"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/tvAppName"-->
+            <!--                tools:ignore="HardcodedText" />-->
+
+            <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--                android:id="@+id/btnShare"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:contentDescription="Share"-->
+            <!--                android:src="@drawable/ic_share"-->
+            <!--                android:visibility="visible"-->
+            <!--                app:backgroundTint="@android:color/transparent"-->
+            <!--                app:elevation="0dp"-->
+            <!--                app:fabCustomSize="30dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/btnDelete"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/btnDelete"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/btnDelete"-->
+            <!--                tools:ignore="HardcodedText" />-->
+
+            <!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--                android:id="@+id/btnCopy"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:contentDescription="Copy"-->
+            <!--                android:src="@drawable/ic_copy"-->
+            <!--                android:visibility="visible"-->
+            <!--                app:backgroundTint="@android:color/transparent"-->
+            <!--                app:elevation="0dp"-->
+            <!--                app:fabCustomSize="30dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/btnShare"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/btnShare"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/btnShare"-->
+            <!--                tools:ignore="HardcodedText" />-->
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcMain"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
+                android:layout_margin="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtSearch" />
+                app:layout_constraintTop_toBottomOf="@+id/layTop" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieEmpty"
@@ -167,22 +168,30 @@
                 android:id="@+id/btnAdd"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginBottom="-20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/theme"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_add"
                 app:elevation="10dp"
                 app:fabCustomSize="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/viewSep1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/black" />
+
+            <View
+                android:id="@+id/viewSep1"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/foreground"
                 app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/black" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:fillViewport="true"
                 android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -193,16 +202,16 @@
                     android:id="@+id/layNavigationBottom"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bottom_navigation_background"
+                    android:layout_gravity="center"
                     android:baselineAligned="false"
-                    android:gravity="center"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/layAccounts"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -211,7 +220,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@android:color/transparent"
-                            android:padding="5dp"
                             android:scaleType="center"
                             android:src="@drawable/ic_planet"
                             app:shapeAppearanceOverlay="@style/CircleImageView" />
@@ -230,8 +238,7 @@
                         android:id="@+id/layBankCards"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -240,7 +247,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@android:color/transparent"
-                            android:padding="5dp"
                             android:scaleType="center"
                             android:src="@drawable/ic_credit_card"
                             app:shapeAppearanceOverlay="@style/CircleImageView" />
@@ -259,8 +265,7 @@
                         android:id="@+id/layContacts"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -269,7 +274,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@android:color/transparent"
-                            android:padding="5dp"
                             android:scaleType="center"
                             android:src="@drawable/ic_phone2"
                             app:shapeAppearanceOverlay="@style/CircleImageView" />
@@ -289,7 +293,7 @@
                         android:id="@+id/layNotes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
+                        android:layout_weight="0.25"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -298,7 +302,6 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@android:color/transparent"
-                            android:padding="5dp"
                             android:scaleType="center"
                             android:src="@drawable/ic_note"
                             app:shapeAppearanceOverlay="@style/CircleImageView" />

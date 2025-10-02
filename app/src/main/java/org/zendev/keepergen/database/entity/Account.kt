@@ -9,8 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "Accounts")
 data class Account(
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var userId: Int = 0,
     var name: String,
     var phoneNumber: String,

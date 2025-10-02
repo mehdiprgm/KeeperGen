@@ -35,7 +35,8 @@ class NewAccountActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var pref: SharedPreferences
 
     private lateinit var accountName: String
-    private lateinit var accountType: String
+
+    private var accountType = "Social media"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,8 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -213,67 +213,6 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardFixedBugs"
-            style="@style/CardViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardFeatures">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layFixedBugs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true"
-                android:background="@color/panelBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/tvFixedBugs"
-                    style="@style/TextNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_bug"
-                    android:drawablePadding="10dp"
-                    android:gravity="center"
-                    android:text="Fixed bugs"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvFixedBug1"
-                    style="@style/TextNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_dot"
-                    android:text="Unexpected item selection occurs when multi-select mode is enabled"
-                    app:layout_constraintStart_toStartOf="@+id/tvFixedBugs"
-                    app:layout_constraintTop_toBottomOf="@+id/tvFixedBugs" />
-
-                <TextView
-                    android:id="@+id/tvFixedBug2"
-                    style="@style/TextNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:drawableStart="@drawable/ic_dot"
-                    android:text="Code optimization and performance improvement"
-                    app:layout_constraintStart_toStartOf="@+id/tvFixedBug1"
-                    app:layout_constraintTop_toBottomOf="@+id/tvFixedBug1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
             android:id="@+id/cardDeveloperInformation"
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
@@ -283,10 +222,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardFixedBugs">
+            app:layout_constraintTop_toBottomOf="@id/cardFeatures">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
